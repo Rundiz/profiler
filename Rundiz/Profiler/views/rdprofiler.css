@@ -1,0 +1,165 @@
+
+
+/* override body padding-bottom to have more space for profiler height */
+body {
+	padding-bottom: 32px;
+}
+
+
+.rdprofiler {
+	background: #eee;
+	border: none;
+	border-top: 1px solid #bbb;
+	box-shadow: 0 -1px rgba(255,255,255,0.2);
+	bottom: 0;
+	display: block;
+	font-size: 11px;
+	height: 30px;
+	left: 0;
+	margin: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+}
+.rdprofiler a {
+	color: inherit;
+}
+.rdprofiler a.highlight {
+	color: #896139;
+	text-decoration: none;
+}
+.rdprofiler strong {
+	font-weight: bold;
+}
+
+
+.rdprofiler-container {
+	display: block;
+	height: 100%;
+	position: relative;
+}
+
+
+.rdprofiler-log-sections {
+	display: table;
+	line-height: 30px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+.rdprofiler-log-sections > li {
+	border: none;
+	border-right: 1px solid #ccc;
+	display: table-cell;
+	list-style: none;
+	margin: 0;
+	padding: 0 10px;
+}
+.rdprofiler-log-sections li.rdprofiler-see-details a {
+	cursor: pointer;
+	display: block;
+}
+.rdprofiler-log-sections ul {
+	background-color: #ddd;
+	border: none;
+	border-bottom: 1px solid #bbb;
+	bottom: 30px;
+	display: none;
+	height: 330px;
+	left: 10px;
+	line-height: 16px;
+	list-style: none;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: absolute;
+	right: 10px;
+	z-index: 100;
+}
+.rdprofiler-log-sections li.rdprofiler-see-details.active {
+	background-color: #ddd;
+}
+.rdprofiler-log-sections li.rdprofiler-see-details.active ul {
+	display: block;
+}
+.rdprofiler-log-sections ul li {
+	border: none;
+	border-bottom: 1px dotted #bbb;
+	display: table;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	table-layout: fixed;
+	width: 100%;
+}
+.rdprofiler-log-sections ul li:first-child,
+.rdprofiler-log-sections ul li:last-child {
+	margin: 0;
+}
+.rdprofiler-log-sections ul li:hover {
+	background-color: rgba(255,255,255,0.2);
+}
+.rdprofiler-log-sections ul li.rdprofiler-log-sumary-row {
+	font-weight: bold;
+}
+.rdprofiler-log-sections ul li > div,
+.rdprofiler-log-sections ul li > pre {
+	display: table-cell;
+	margin: 0;
+	padding: 5px 10px;
+}
+
+.rdprofiler-log-sections ul li .rdprofiler-log-data {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-newrow {
+	display: table-row;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-explain,
+.rdprofiler-log-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-trace {
+	color: #777;
+	display: table-cell;
+	margin: 0;
+	padding: 5px 10px;
+	width: 100%;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+	width: 200px;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-db-timetake,
+.rdprofiler-log-sections ul li .rdprofiler-log-filesize,
+.rdprofiler-log-sections ul li .rdprofiler-log-file-largestsize-value,
+.rdprofiler-log-sections ul li .rdprofiler-log-memory,
+.rdprofiler-log-sections ul li .rdprofiler-log-time,
+.rdprofiler-log-sections ul li .rdprofiler-log-file-totalsize-value {
+	width: 60px;
+}
+
+.rdprofiler-log-sections ul li .rdprofiler-log-inputs-value {
+	width: 50%;
+}
+
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype {
+	width: 50px;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.debug,
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.info {
+	background-color: #CDE5CC;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.notice {
+	background-color: #E1E2BC;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.warning {
+	background-color: #E0C9A8;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.error {
+	background-color: #E29B9A;
+}
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.critical,
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.alert,
+.rdprofiler-log-sections ul li .rdprofiler-log-logtype.emergency {
+	background-color: #CE5452;
+	color: #eee;
+}

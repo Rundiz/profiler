@@ -1,0 +1,112 @@
+/*
+main css
+*/
+
+
+body {
+	color: #333;
+	font-size: 14px;
+	padding: 20px;
+}
+
+
+code {
+	background-color: #333;
+	color: #ddd;
+	padding: 2px 5px;
+}
+
+
+h1 {
+	border-bottom: 2px solid #ddd;
+	font-size: 2.75rem;
+	padding-bottom: 10px;
+}
+h2 {
+	border-bottom: 1px solid #ddd;
+	font-size: 2.2rem;
+	padding-bottom: 10px;
+}
+h3 {
+	font-size: 1.67rem;
+}
+h4 {
+	font-size: 1.35rem;
+}
+h5 {
+	color: #888;
+	font-size: 1.093rem;
+	font-weight: bold;
+}
+h6 {
+	color: #999;
+	font-size: 0.937rem;
+	font-weight: bold;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-bottom: 10px;
+}
+
+
+hr {
+	border: none;
+	border-bottom: 2px solid #ccc;
+	margin: 20px 0;
+}
+
+
+ul li {
+	list-style: disc inside;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin-top: 5px;
+}
+ul > li:first-child {
+	margin-top: 0;
+}
+ul ul > li:first-child {
+	margin-top: 5px;
+}
+
+
+.alert-error {
+	background-color: #BC0B0B;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+	color: #fff;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+
+.help {
+	color: #aaa;
+	font-size: 11px;
+}
+
+
+.profiler-data-dump-test {
+	background-color: #333;
+	color: #ddd;
+	height: 330px;
+	margin: 10px 0;
+	overflow: auto;
+	padding: 10px;
+}
+
+
+.table {
+	border: 1px solid #eee;
+	border-collapse: collapse;
+	width: 100%;
+}
+.table thead td,
+.table thead th,
+.table th {
+	font-weight: bold;
+	text-align: left;
+}
+.table td,
+.table th {
+	border: 1px solid #eee;
+	padding: 10px;
+}

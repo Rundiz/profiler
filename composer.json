@@ -1,0 +1,24 @@
+{
+	"name": "rundiz/profiler",
+	"type": "library",
+	"description": "profiling your php application",
+	"keywords": ["profiling", "profiler", "benchmark", "performance test", "memory usage", "logger"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vee W.",
+			"email": "kawewong@gmail.com",
+			"homepage": "http://rundiz.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"rundiz/number": "~1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Rundiz\\Profiler\\" : "Rundiz/Profiler"
+		}
+	}
+}
