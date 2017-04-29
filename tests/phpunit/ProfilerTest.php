@@ -3,7 +3,7 @@
 
 namespace Rundiz\Profiler\Tests;
 
-class ProfilerTest extends \PHPUnit_Framework_TestCase
+class ProfilerTest extends \PHPUnit\Framework\TestCase
 {
 
 
