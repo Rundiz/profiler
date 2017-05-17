@@ -111,6 +111,8 @@ body {
 }
 
 .rdprofiler-log-sections ul li .rdprofiler-log-data {
+	background-color: transparent;
+	color: #333;
 	white-space: pre-wrap;
 	word-wrap: break-word;
 }
