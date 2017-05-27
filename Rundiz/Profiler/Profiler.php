@@ -212,7 +212,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      */
     public function getReadableFileSize($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = array('bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $sizes = array('bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 
         if ($retstring === null) {
             $retstring = '%01.2f %s';
