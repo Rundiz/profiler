@@ -156,7 +156,8 @@ class Console extends \Rundiz\Profiler\ProfilerBase
         }
 
         if (!array_key_exists($section, $this->Profiler->log_sections)) {
-            $this->Profiler->log_sections[$section] = array();
+            // if section is not exists in the key means it was not registered, get out of this function.
+            return ;
         }
 
         if ($section == 'Logs') {
