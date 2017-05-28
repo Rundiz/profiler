@@ -6,7 +6,7 @@ require dirname(dirname(__DIR__)).'/Rundiz/Profiler/ProfilerBase.php';
 require dirname(dirname(__DIR__)).'/Rundiz/Profiler/Profiler.php';
 
 $profiler = new \Rundiz\Profiler\Profiler();
-$profiler->Console->registerLogSections(array('Logs', 'Memory Usage', 'Session', 'Get', 'Post'));
+$profiler->Console->registerLogSections(['Logs', 'Memory Usage', 'Session', 'Get', 'Post']);
 
 // -----------------------------------------------------------------------------------------------------
 // lazy to write same test on every page, use common test functions
@@ -48,13 +48,13 @@ require __DIR__.'/common-test-functions.php';
         } else {
             $_SESSION['session1'] = 'val1';
             $_SESSION['session2'] = 'val2';
-            $_SESSION['session3'] = array(
-                'sub1' => array(
+            $_SESSION['session3'] = [
+                'sub1' => [
                     'sub1.1' => 'val1.1',
                     'sub1.2' => 'val1.2',
-                ),
+                ],
                 'sub2' => 'val2',
-            );
+            ];
         ?> 
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?query1=val1&amp;query2=val2&amp;query3[1]=val3-1&amp;query3[2]=val3-2&amp;query4[1]=val4[1]&amp;query4[2]=val4[2]&amp;query4[2][1]=val4[2][1]">
             <input type="hidden" name="post1" value="val1">

@@ -1,14 +1,22 @@
 <?php
 /** 
- * @package Rundiz\Profiler
- * @author Vee W.
- * @license http://opensource.org/licenses/MIT
+ * Rundiz Profiler
  * 
+ * @license http://opensource.org/licenses/MIT
  */
 
 
 namespace Rundiz\Profiler;
 
+/**
+ * Profiler class.
+ * 
+ * This class works as processing the data for profiler such as gather things (input, file, sessions), get micro time.<br>
+ * This class also display the profiling result and dump the data for check or tests.
+ * 
+ * @package Rundiz\Profiler
+ * @author Vee W.
+ */
 class Profiler extends \Rundiz\Profiler\ProfilerBase
 {
 
@@ -32,6 +40,29 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
         }
         $this->Console = new \Rundiz\Profiler\Console($this);
     }// __construct
+
+
+    /**
+     * Count total log type in the "Logs" section.
+     * 
+     * @param string $logtype Accept debug, info, notice, warning, error, critical, alert, emergency. referrer: http://www.php-fig.org/psr/psr-3/
+     * @return integer Return counted total log type in the "Logs" section.
+     */
+    public function countTotalLogType($logtype)
+    {
+        $count = 0;
+
+        if (isset($this->log_sections['Logs']) && is_array($this->log_sections['Logs'])) {
+            foreach ($this->log_sections['Logs'] as $item) {
+                if (isset($item['logtype']) && $item['logtype'] == $logtype) {
+                    $count++;
+                }
+            }// endforeach;
+            unset($item);
+        }
+
+        return $count;
+    }// countTotalLogType
 
 
     /**
@@ -59,12 +90,12 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      */
     public function dumptest()
     {
-        return array(
+        return [
             'log_sections' => $this->log_sections, 
             'start_time' => $this->start_time, 
             'end_time' => $this->end_time,
             'max_memory_usage' => $this->max_memory_usage,
-        );
+        ];
     }// dumptest
 
 
@@ -95,17 +126,17 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
         }
 
         $files = get_included_files();
-        $section_data_array = array();
+        $section_data_array = [];
         $total_size = 0;
         $largest_size = 0;
 
         if (is_array($files)) {
             foreach ($files as $file) {
                 $size = filesize($file);
-                $section_data_array[] = array(
+                $section_data_array[] = [
                     'data' => $file,
                     'size' => $size,
-                );
+                ];
                 $total_size = bcadd($total_size, $size);
 
                 if ($size > $largest_size) {
@@ -133,14 +164,14 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
             return ;
         }
 
-        $section_data_array = array();
+        $section_data_array = [];
 
         if (isset($_GET) && is_array($_GET)) {
             foreach ($_GET as $name => $value) {
-                $section_data_array[] = array(
+                $section_data_array[] = [
                     'data' => $name,
                     'inputvalue' => $value,
-                );
+                ];
             }// endforeach;
             unset($name, $value);
         }
@@ -159,14 +190,14 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
             return ;
         }
 
-        $section_data_array = array();
+        $section_data_array = [];
 
         if (isset($_POST) && is_array($_POST)) {
             foreach ($_POST as $name => $value) {
-                $section_data_array[] = array(
+                $section_data_array[] = [
                     'data' => $name,
                     'inputvalue' => $value,
-                );
+                ];
             }// endforeach;
             unset($name, $value);
         }
@@ -185,14 +216,14 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
             return ;
         }
 
-        $section_data_array = array();
+        $section_data_array = [];
 
         if (isset($_SESSION) && is_array($_SESSION)) {
             foreach ($_SESSION as $name => $value) {
-                $section_data_array[] = array(
+                $section_data_array[] = [
                     'data' => $name,
                     'inputvalue' => $value,
-                );
+                ];
             }// endforeach;
             unset($name, $value);
         }
@@ -212,7 +243,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      */
     public function getReadableFileSize($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = array('bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
         if ($retstring === null) {
             $retstring = '%01.2f %s';
@@ -261,7 +292,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
     public function getReadableTime($time) {
         $ret = $time;
         $formatter = 0;
-        $formats = array('ms', 's', 'm');
+        $formats = ['ms', 's', 'm'];
         if ($time >= 1000 && $time < 60000) {
             $formatter = 1;
             $ret = ($time / 1000);
@@ -274,5 +305,63 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
         unset($formats, $formatter);
         return $ret;
     }// getReadableTime
+
+
+    /**
+     * Summary start and end of match key in a section.
+     * 
+     * @param string $section The section name.
+     * @param string $matchKey The match key in that section.
+     * @param integer $sectionKey The array index key of the section for check while displaying in the loop.
+     * @return string Return the readable result if found 2 match key and can summary. Return empty string if not found.
+     */
+    public function summaryMatchKey($section, $matchKey, $sectionKey)
+    {
+        if (!is_string($section)) {
+            $section = null;
+        }
+
+        if (!is_string($matchKey)) {
+            $matchKey = null;
+        }
+
+        if (!is_numeric($sectionKey)) {
+            $sectionKey = 0;
+        }
+
+        $output = '';
+
+        if (isset($this->log_sections[$section]) && is_array($this->log_sections[$section]) && $matchKey !== null) {
+            $matchKeyTime = [];
+            $matchKeyMemory = [];
+
+            foreach ($this->log_sections[$section] as $key => $item) {
+                if (isset($item['matchKey']) && $item['matchKey'] == $matchKey && $key <= $sectionKey) {
+                    if (count($matchKeyMemory) >= 2 || count($matchKeyTime) >= 2) {
+                        break;
+                    }
+
+                    if (isset($item['time'])) {
+                        $matchKeyTime[] = $item['time'];
+                    }
+
+                    if (isset($item['memory'])) {
+                        $matchKeyMemory[] = $item['memory'];
+                    }
+                }
+            }// endforeach;
+            unset($item, $key);
+
+            if (count($matchKeyTime) >= 2) {
+                $output = $this->getReadableTime((max($matchKeyTime)-min($matchKeyTime))*1000);
+            } elseif (count($matchKeyMemory) >= 2) {
+                $output = $this->getReadableFileSize(max($matchKeyMemory)-min($matchKeyMemory));
+            }
+
+            unset($matchKeyMemory, $matchKeyTime);
+        }
+
+        return $output;
+    }// summaryMatchKey
 
 }

@@ -1,14 +1,21 @@
 <?php
 /** 
- * @package Rundiz\Profiler
- * @author Vee W.
- * @license http://opensource.org/licenses/MIT
+ * Rundiz Profiler
  * 
+ * @license http://opensource.org/licenses/MIT
  */
 
 
 namespace Rundiz\Profiler;
 
+/**
+ * Profiler based class.
+ * 
+ * For access common properties between console and profiler class.
+ * 
+ * @package Rundiz\Profiler
+ * @author Vee W.
+ */
 abstract class ProfilerBase
 {
 
@@ -25,7 +32,7 @@ abstract class ProfilerBase
      * the array key file and line is not required, time and memory key is for display only.<br>
      * the sections suggest are: Logs, Time Load, Memory Usage, Database and automatic sections are: Files, Session, Get, Post
      */
-    protected $log_sections = array();
+    protected $log_sections = [];
 
 
     /**

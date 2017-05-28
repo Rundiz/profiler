@@ -6,18 +6,26 @@ if (file_exists(__DIR__.DIRECTORY_SEPARATOR.'functions.php')) {
 if (class_exists('\\Rundiz\\Number\\Number')) {
     $number = new \Rundiz\Number\Number();
 }
+
+// Set document for helper in IDE.
+/* @var $this \Rundiz\Profiler\Profiler */
 ?>
 
-<script>
-<?php rdprofilerLoadCss(); ?> 
+<!-- begins javascript for Rundiz/Profiler -->
+<script type="text/javascript">
+    //<![CDATA[
+<?php rdProfilerLoadCss(); ?> 
 
 <?php 
 echo 'if (typeof jQuery == \'undefined\') {'."\n";
-rdprofilerLoadJs('jquery');
+rdProfilerLoadJs('jquery');
 echo '}'."\n\n";
-rdprofilerLoadJs(); 
+rdProfilerLoadJs(); 
 ?> 
+    //]]>
 </script>
+<!-- end javascript for Rundiz/Profiler -->
+
 <div class="rdprofiler">
     <div class="rdprofiler-container">
         <ul class="rdprofiler-log-sections">
@@ -58,30 +66,82 @@ rdprofilerLoadJs();
                     // ul of section details.
                     echo "\t".'<ul>'."\n";
 
-                    // file have summaries, display them first.
-                    if ($section == 'Files' && isset($data_array['total_size'])) {
-                        echo "\t\t".'<li class="rdprofiler-log-sumary-row">'."\n";
-                        echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize">Total size</div>'."\n";
-                        echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize-value">';
-                        if (isset($number)) {
-                            echo $number->fromBytes($data_array['total_size']);
-                        } else {
-                            echo $this->getReadableFileSize($data_array['total_size']);
-                        }
-                        echo '</div>'."\n";
+                    // display log types and its color including summary for each log type.
+                    if ($section == 'Logs') {
+                        echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                        echo "\t\t\t".'<table class="rdprofiler-log-logtypes">'."\n";
+                        echo "\t\t\t\t".'<tr>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype debug">Debug ('.$this->countTotalLogType('debug').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype info">Info ('.$this->countTotalLogType('info').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype notice">Notice ('.$this->countTotalLogType('notice').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype warning">Warning ('.$this->countTotalLogType('warning').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype error">Error ('.$this->countTotalLogType('error').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype critical">Critical ('.$this->countTotalLogType('critical').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype alert">Alert ('.$this->countTotalLogType('alert').')</td>'."\n";
+                        echo "\t\t\t\t\t".'<td class="rdprofiler-log-logtype emergency">Emergency ('.$this->countTotalLogType('emergency').')</td>'."\n";
+                        echo "\t\t\t\t".'</tr>'."\n";
+                        echo "\t\t\t".'</table>'."\n";
                         echo "\t\t".'</li>'."\n";
                     }
-                    if ($section == 'Files' && isset($data_array['largest_size'])) {
-                        echo "\t\t".'<li class="rdprofiler-log-sumary-row">'."\n";
-                        echo "\t\t\t".'<div class="rdprofiler-log-file-largestsize">Largest size</div>'."\n";
-                        echo "\t\t\t".'<div class="rdprofiler-log-file-largestsize-value">';
-                        if (isset($number)) {
-                            echo $number->fromBytes($data_array['largest_size']);
-                        } else {
-                            echo $this->getReadableFileSize($data_array['largest_size']);
-                        }
-                        echo '</div>'."\n";
+
+                    // display row heading for time load.
+                    if ($section == 'Time Load') {
+                        echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-data">Data</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-fileline">File</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-time">Time</div>'."\n";
                         echo "\t\t".'</li>'."\n";
+                    }
+
+                    // display row heading for memory usage.
+                    if ($section == 'Memory Usage') {
+                        echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-data">Data</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-fileline">File</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-time">Memory</div>'."\n";
+                        echo "\t\t".'</li>'."\n";
+                    }
+
+                    // display row heading for database.
+                    if ($section == 'Database') {
+                        echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-data">SQL statement</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-db-timetake">Time</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-memory">Memory</div>'."\n";
+                        echo "\t\t".'</li>'."\n";
+                    }
+
+                    // file have summaries, display them first.
+                    if ($section == 'Files') {
+                        // display row heading first.
+                        echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize">File</div>'."\n";
+                        echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize-value">Size</div>'."\n";
+                        echo "\t\t".'</li>'."\n";
+                        if (isset($data_array['total_size'])) {
+                            echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                            echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize">Total size</div>'."\n";
+                            echo "\t\t\t".'<div class="rdprofiler-log-file-totalsize-value">';
+                            if (isset($number)) {
+                                echo $number->fromBytes($data_array['total_size']);
+                            } else {
+                                echo $this->getReadableFileSize($data_array['total_size']);
+                            }
+                            echo '</div>'."\n";
+                            echo "\t\t".'</li>'."\n";
+                        }
+                        if (isset($data_array['largest_size'])) {
+                            echo "\t\t".'<li class="rdprofiler-log-summary-row">'."\n";
+                            echo "\t\t\t".'<div class="rdprofiler-log-file-largestsize">Largest size</div>'."\n";
+                            echo "\t\t\t".'<div class="rdprofiler-log-file-largestsize-value">';
+                            if (isset($number)) {
+                                echo $number->fromBytes($data_array['largest_size']);
+                            } else {
+                                echo $this->getReadableFileSize($data_array['largest_size']);
+                            }
+                            echo '</div>'."\n";
+                            echo "\t\t".'</li>'."\n";
+                        }
                     }
 
                     if (is_array($data_array) && !empty($data_array)) {
@@ -94,7 +154,7 @@ rdprofilerLoadJs();
                                     echo "\t\t\t".'<div class="rdprofiler-log-logtype '.strip_tags($data_values['logtype']).'">'.strip_tags(ucfirst($data_values['logtype'])).'</div>'."\n";
                                 }
 
-                                echo "\t\t\t".'<pre class="rdprofiler-log-data">'.  htmlspecialchars(trim(print_r($data_values['data'], true))).'</pre>'."\n";
+                                echo "\t\t\t".'<pre class="rdprofiler-log-data">'.htmlspecialchars(trim(print_r($data_values['data'], true))).'</pre>'."\n";
 
                                 if ((isset($data_values['file']) && $data_values['file'] != null) || (isset($data_values['line']) && $data_values['line'] != null)) {
                                     echo "\t\t\t";
@@ -124,6 +184,19 @@ rdprofilerLoadJs();
                                         echo $this->getReadableFileSize($data_values['memory']);
                                     }
                                     echo '</div>'."\n";
+                                }
+
+                                if (isset($data_values['matchKey'])) {
+                                    echo "\t\t\t".'<div class="rdprofiler-log-newrow">'."\n";
+                                    echo "\t\t\t\t".'<div class="rdprofiler-log-time-and-memory-matchkey">'."\n";
+                                    echo "\t\t\t\t\t".'Match Key is: '.$data_values['matchKey'].'.';
+                                    $summaryMatchKeyValue = $this->summaryMatchKey($section, $data_values['matchKey'], $data_key);
+                                    if ($summaryMatchKeyValue != null) {
+                                        echo ' ('.$summaryMatchKeyValue.')';
+                                    }
+                                    echo "\t\t\t\t".'</div>'."\n";
+                                    echo "\t\t\t".'</div>'."\n";
+                                    unset($summaryMatchKeyValue);
                                 }
 
                                 if ($section == 'Database') {

@@ -1,5 +1,5 @@
 <?php
-// remove this line and read important guide below to start test db profiling.
+/*// remove this line and read important guide below to start test db profiling.
 session_start();
 
 // !important!
@@ -179,3 +179,4 @@ $dbh = rdpConnectDb($configdb);
         ?>
     </body>
 </html>
+/**/

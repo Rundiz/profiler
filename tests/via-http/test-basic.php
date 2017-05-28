@@ -5,7 +5,7 @@ require dirname(dirname(__DIR__)).'/Rundiz/Profiler/ProfilerBase.php';
 require dirname(dirname(__DIR__)).'/Rundiz/Profiler/Profiler.php';
 
 $profiler = new \Rundiz\Profiler\Profiler();
-$profiler->Console->registerLogSections(array('Logs', 'Time Load', 'Memory Usage', 'Files'));
+$profiler->Console->registerLogSections(['Logs', 'Time Load', 'Memory Usage', 'Files']);
 
 // -----------------------------------------------------------------------------------------------------
 // lazy to write same test on every page, use common test functions

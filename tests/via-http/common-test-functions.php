@@ -13,13 +13,13 @@
 function rdpBasicLogs($profiler)
 {
     try {
+        $profiler->Console->log('info', ['Test' => 'Test log array data', 'Values' => 'Only have 1 level.']);
         $profiler->Console->log('debug', 'Debug log or normal log data.');
-        $profiler->Console->log('info', array('Simple' => 'This array', 'Array' => 'Only have 1 level.'));
-        $profiler->Console->log('info', array('What' => 'Test log array data', 'Values' => array('Name' => 'Vee', 'Last' => 'W')));
+        $profiler->Console->log('info', ['Test' => 'Test log array data', 'Values' => ['Name' => 'Vee', 'Last' => 'W']]);
 
         $testobj = new \stdClass();
         $testobj->newprop = 'new_val';
-        $testobj->arrprop = array('this' => 'is array', 'value' => array('array' => 'value of object property'));
+        $testobj->arrprop = ['this' => 'is array', 'value' => ['array' => 'value of object property']];
         $profiler->Console->log('notice', $testobj, __FILE__, __LINE__);
         unset($testobj);
 
@@ -57,10 +57,15 @@ function rdpMemoryUsage($profiler)
     }
     unset($backtrace, $items);
 
+    $profiler->Console->memoryUsage('Before loop memory usage at file:'.__FILE__.': '.__LINE__, $file, $line, 'commontest_memoryusage_loop');
+
     for ($i = 0; $i <= 10; $i++) {
         $data .= $long_str . "\r\n\r\n";
         $profiler->Console->memoryUsage('Loop round '.$i.' memory usage log at file:'.__FILE__.': '.__LINE__, $file, $line);
     }
+
+    $profiler->Console->memoryUsage('After loop memory usage at file:'.__FILE__.': '.__LINE__, $file, $line, 'commontest_memoryusage_loop');
+
 
     unset($data);
 }// rdpMemoryUsage
@@ -73,6 +78,8 @@ function rdpMemoryUsage($profiler)
  */
 function rdpTimeLoadLogs($profiler)
 {
+    $profiler->Console->timeload('Time at begins of time load logs test.');
+
     $file = '';
     $line = '';
     $backtrace = debug_backtrace();
@@ -90,8 +97,8 @@ function rdpTimeLoadLogs($profiler)
     $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
     $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
     $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
-    $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
+    $profiler->Console->timeload('Before usleep. Time taken to this line '.__FILE__.': '.__LINE__, $file, $line, 'commontest_usleep');
     usleep(100000);
-    $profiler->Console->timeload('After sleep. Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
+    $profiler->Console->timeload('After usleep. Time taken to this line '.__FILE__.': '.__LINE__, $file, $line, 'commontest_usleep');
     $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
 }// rdpTimeLoadLogs
