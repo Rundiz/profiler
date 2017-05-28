@@ -1,5 +1,6 @@
 <?php
 /*// remove this line and read important guide below to start test db profiling.
+// copy this file to new name test-full.php and change configuration below.
 session_start();
 
 // !important!
@@ -7,9 +8,9 @@ session_start();
 // 1. enter your configuration here. this is for connect to db.
 $configdb = [];
 $configdb['host'] = 'localhost';
-$configdb['dbname'] = 'github_rundiz_profiler';
-$configdb['username'] = 'user';
-$configdb['password'] = 'pass';
+$configdb['dbname'] = '';
+$configdb['username'] = '';
+$configdb['password'] = '';
 // 2. create database where you specify in the config above.
 // 3. import data that contain create table and insert in the file 'test-db.sql' into mysql, mariadb server.
 
