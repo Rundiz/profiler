@@ -101,4 +101,14 @@ function rdpTimeLoadLogs($profiler)
     usleep(100000);
     $profiler->Console->timeload('After usleep. Time taken to this line '.__FILE__.': '.__LINE__, $file, $line, 'commontest_usleep');
     $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line);
+
+    for ($i = 1; $i <= 10; $i++) {
+        $profiler->Console->timeload('Time taken to this loop ('.$i.') '.__FILE__.': '.__LINE__, $file, $line, 'commontest_timeloop_'.$i);
+    }
+    for ($i = 10; $i >= 1; $i--) {
+        $profiler->Console->timeload('Time taken to this loop (end loop for collect self time'.$i.') '.__FILE__.': '.__LINE__, $file, $line, 'commontest_timeloop_'.$i);
+    }
+
+    $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line, 'commontest_aftertimeloop');
+    $profiler->Console->timeload('Time taken to this line '.__FILE__.': '.__LINE__, $file, $line, 'commontest_aftertimeloop');
 }// rdpTimeLoadLogs

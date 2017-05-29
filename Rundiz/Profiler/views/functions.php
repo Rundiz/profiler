@@ -7,6 +7,28 @@
 
 
 /**
+ * Render indent by number.
+ * 
+ * The indent is PHP PSR (4 space per 1 indent).
+ * 
+ * @param integer $number Number of indent.
+ * @return string Return indent string.
+ */
+function rdProfilerIndent($number = 1)
+{
+    if (!is_numeric($number)) {
+        $number = 1;
+    }
+
+    if (!is_int($number)) {
+        $number = intval($number);
+    }
+
+    return str_repeat('    ', $number);
+}// rdProfilerIndent
+
+
+/**
  * load css file and set as variable.
  * 
  * @param string $file css file name without .css extension.

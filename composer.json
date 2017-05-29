@@ -13,8 +13,10 @@
 		}
 	],
 	"require": {
-		"php": ">=5.3.0",
-		"rundiz/number": "~1"
+		"php": ">=5.4.0"
+	},
+	"suggest": {
+		"rundiz/number": "For easy and flexible number conversion."
 	},
 	"autoload": {
 		"psr-4": {

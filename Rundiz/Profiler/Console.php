@@ -44,7 +44,8 @@ class Console extends \Rundiz\Profiler\ProfilerBase
      * 
      * @param string $data SQL query statement. for example: SELECT id FROM people;.
      * @param double $time_start `microtime(true)` at before start the query.
-     * @param integer $memory_start `memory_get_usage()` at before start the query. If this was not set then it will be showing current running memory usage not total memory usage for this process.
+     * @param integer $memory_start `memory_get_usage()` at before start the query. If this was not set then it will not be showing the real memory start. (Required).
+     * @todo [rundizprofiler] the "memory" in array key for Database will be remove in future version.
      */
     public function database($data, $time_start, $memory_start = null)
     {
@@ -60,8 +61,12 @@ class Console extends \Rundiz\Profiler\ProfilerBase
             $time_start = $this->Profiler->getMicrotime();
         }
 
+        if ($memory_start === null) {
+            // is dev still not using memory start? trigger error.
+            trigger_error('You did not enter $memory_start argument for \Rundiz\Profiler\Console->database() method. Please set the $memory_start to memory_get_usage() in your code.', E_USER_NOTICE);
+        }
         if (!is_int($memory_start)) {
-            $memory_start = null;
+            $memory_start = memory_get_usage();
         }
 
         $backtrace = debug_backtrace();

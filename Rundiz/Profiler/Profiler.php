@@ -77,8 +77,10 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
         // return display views.
         ob_start();
         require __DIR__.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'display.php';
+        $this->reset();
         $output = ob_get_contents();
         ob_end_clean();
+
         return $output;
     }// display
 
@@ -243,7 +245,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      */
     public function getReadableFileSize($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
         if ($retstring === null) {
             $retstring = '%01.2f %s';

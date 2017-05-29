@@ -41,14 +41,6 @@ class rdpDisplayProfilerDb
                     echo $profiler->getReadableFileSize($data_values['memory_end']-$data_values['memory_start']);
                 }
                 echo '</div>'."\n";
-            } elseif (array_key_exists('memory', $data_values)) {
-                echo '<div class="rdprofiler-log-memory">';
-                if (isset($number)) {
-                    echo $number->fromBytes($data_values['memory']);
-                } else {
-                    echo $profiler->getReadableFileSize($data_values['memory']);
-                }
-                echo '</div>'."\n";
             }
         }
 

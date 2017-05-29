@@ -56,4 +56,16 @@ abstract class ProfilerBase
     protected $end_time;
 
 
+    /**
+     * Reset everything to cleanup.
+     */
+    protected function reset()
+    {
+        $this->log_sections = [];
+        $this->max_memory_usage = null;
+        $this->start_time = null;
+        $this->end_time = null;
+    }// reset
+
+
 }
