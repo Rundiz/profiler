@@ -9,6 +9,22 @@ To see how it works, please look inside tests folder.
 
 ![Rundiz\Profiler](tests/via-http/profiler-screenshot.jpg "Rundiz Profiler screenshot")
 
+![Rundiz\Profiler](tests/via-http/profiler-screenshot2.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot3.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot4.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot5.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot6.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot7.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot8.jpg "Rundiz Profiler screenshot")
+
+![Rundiz\Profiler](tests/via-http/profiler-screenshot9.jpg "Rundiz Profiler screenshot")
+
 This profiler use [Particletree PHP Quick Profiler][1] ideas.
 
 [1]: http://www.particletree.com/features/php-quick-profiler/
