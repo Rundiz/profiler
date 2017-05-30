@@ -81,7 +81,9 @@ body {
     width: 100%;
 }
 .rdprofiler-log-logtypes td,
+.rdprofiler-log-logtypes td.rdprofiler-log-logtype,
 .rdprofiler-log-logtypes th {
+    border: none;
     margin: 0;
     padding: 3px 5px;
     width: 12.5%;
