@@ -16,6 +16,12 @@
  */
 function rdProfilerIndent($number = 1)
 {
+    global $rundizProfilerBeautifulIndent;
+
+    if ($rundizProfilerBeautifulIndent === false) {
+        return '';
+    }
+
     if (!is_numeric($number)) {
         $number = 1;
     }

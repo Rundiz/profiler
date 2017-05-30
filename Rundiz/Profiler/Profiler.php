@@ -22,6 +22,12 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
+     * @var boolean Set to true for beautiful indent, false for not indent. The indent html result makes code looks easier.
+     */
+    public $beautifulIndent = false;
+
+
+    /**
      * console class chaining.
      * 
      * @var \Rundiz\Profiler\Console for access console class
@@ -73,6 +79,9 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
     public function display($dbh = '', $display_db_function = '')
     {
         $this->gatherAll();
+
+        global $rundizProfilerBeautifulIndent;
+        $rundizProfilerBeautifulIndent = $this->beautifulIndent;
 
         // return display views.
         ob_start();
