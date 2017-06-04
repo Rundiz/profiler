@@ -182,6 +182,8 @@ body {
 }
 .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
     width: 200px;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 .rdprofiler-log-sections ul li .rdprofiler-log-db-timetake,
 .rdprofiler-log-sections ul li .rdprofiler-log-filesize,
