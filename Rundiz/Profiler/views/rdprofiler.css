@@ -42,33 +42,33 @@ body {
 }
 
 
-.rdprofiler-log-logtype.debug {
+.rdprofiler-log-logtype.rdprofiler-logtype-debug {
     background-color: #CDE5CC;
 }
-.rdprofiler-log-logtype.info {
+.rdprofiler-log-logtype.rdprofiler-logtype-info {
     background-color: #D7E3EB;
 }
-.rdprofiler-log-logtype.notice {
+.rdprofiler-log-logtype.rdprofiler-logtype-notice {
     background-color: #EAEBC5;
 }
-.rdprofiler-log-logtype.warning {
+.rdprofiler-log-logtype.rdprofiler-logtype-warning {
     background-color: #EEDAA4;
 }
-.rdprofiler-log-logtype.error {
+.rdprofiler-log-logtype.rdprofiler-logtype-error {
     background-color: #E7A763;
 }
-.rdprofiler-log-logtype.critical,
-.rdprofiler-log-logtype.alert,
-.rdprofiler-log-logtype.emergency {
+.rdprofiler-log-logtype.rdprofiler-logtype-critical,
+.rdprofiler-log-logtype.rdprofiler-logtype-alert,
+.rdprofiler-log-logtype.rdprofiler-logtype-emergency {
     color: #eee;
 }
-.rdprofiler-log-logtype.critical {
+.rdprofiler-log-logtype.rdprofiler-logtype-critical {
     background-color: #D93727;
 }
-.rdprofiler-log-logtype.alert {
+.rdprofiler-log-logtype.rdprofiler-logtype-alert {
     background-color: #A80000;
 }
-.rdprofiler-log-logtype.emergency {
+.rdprofiler-log-logtype.rdprofiler-logtype-emergency {
     background-color: #440101;
 }
 

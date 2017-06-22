@@ -13,14 +13,14 @@ echo "\n";
                     <li class="rdprofiler-log-summary-row">
                         <table class="rdprofiler-log-logtypes">
                             <tr>
-                                <td class="rdprofiler-log-logtype debug">Debug (<?php echo $this->countTotalLogType('debug'); ?>)</td>
-                                <td class="rdprofiler-log-logtype info">Info (<?php echo $this->countTotalLogType('info'); ?>)</td>
-                                <td class="rdprofiler-log-logtype notice">Notice (<?php echo $this->countTotalLogType('notice'); ?>)</td>
-                                <td class="rdprofiler-log-logtype warning">Warning (<?php echo $this->countTotalLogType('warning'); ?>)</td>
-                                <td class="rdprofiler-log-logtype error">Error (<?php echo $this->countTotalLogType('error'); ?>)</td>
-                                <td class="rdprofiler-log-logtype critical">Critical (<?php echo $this->countTotalLogType('critical'); ?>)</td>
-                                <td class="rdprofiler-log-logtype alert">Alert (<?php echo $this->countTotalLogType('alert'); ?>)</td>
-                                <td class="rdprofiler-log-logtype emergency">Emergency (<?php echo $this->countTotalLogType('emergency'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-debug">Debug (<?php echo $this->countTotalLogType('debug'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-info">Info (<?php echo $this->countTotalLogType('info'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-notice">Notice (<?php echo $this->countTotalLogType('notice'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-warning">Warning (<?php echo $this->countTotalLogType('warning'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-error">Error (<?php echo $this->countTotalLogType('error'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-critical">Critical (<?php echo $this->countTotalLogType('critical'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-alert">Alert (<?php echo $this->countTotalLogType('alert'); ?>)</td>
+                                <td class="rdprofiler-log-logtype rdprofiler-logtype-emergency">Emergency (<?php echo $this->countTotalLogType('emergency'); ?>)</td>
                             </tr>
                         </table>
                     </li><!--.rdprofiler-log-summary-row-->
@@ -35,7 +35,7 @@ echo "\n";
                         echo "\n";
                         if (isset($data_values['logtype'])) {
                             // if log type exists. this is only for Logs section.
-                            echo rdProfilerIndent(6).'<div class="rdprofiler-log-logtype '.strip_tags($data_values['logtype']).'">'.strip_tags(ucfirst($data_values['logtype'])).'</div>'."\n";
+                            echo rdProfilerIndent(6).'<div class="rdprofiler-log-logtype rdprofiler-logtype-'.strip_tags($data_values['logtype']).'">'.strip_tags(ucfirst($data_values['logtype'])).'</div>'."\n";
                         }
 
                         echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
