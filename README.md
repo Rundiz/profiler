@@ -1,7 +1,7 @@
 # Profiler Component
 
 Record processes logs and display to the web browser. This can help you check your application performance such as time and memory usage.<br>
-To see how it works, please look inside tests folder.
+To see how it works, please look inside tests folder on [GitHub repository](https://github.com/Rundiz/profiler).
 
 [![Latest Stable Version](https://poser.pugx.org/rundiz/profiler/v/stable)](https://packagist.org/packages/rundiz/profiler)
 [![License](https://poser.pugx.org/rundiz/profiler/license)](https://packagist.org/packages/rundiz/profiler)
