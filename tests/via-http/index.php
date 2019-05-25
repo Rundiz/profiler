@@ -18,5 +18,17 @@
                 <small class="help">Please open this file at <?php echo realpath('test-full.php'); ?> and follow instruction in the file before go to &quot;Full Test&quot;.</small>
             </li>
         </ul>
+
+        <h2 style="margin-top: 40px;">Test with CSS frameworks</h2>
+        <p>Based on basic test but different styles.</p>
+        <ul>
+            <li><a href="styles/basic-bootstrap3.php">Bootstrap 3</a></li>
+            <li><a href="styles/basic-bootstrap4.php">Bootstrap 4</a></li>
+            <li><a href="styles/basic-foundation5.php">Foundation 5</a></li>
+            <li><a href="styles/basic-foundation6.php">Foundation 6</a></li>
+            <li><a href="styles/basic-skeleton1.php">Skeleton 1</a></li>
+            <li><a href="styles/basic-bulma0.php">Bulma 0</a></li>
+            <li><a href="styles/basic-pure1.php">Pure 1</a></li>
+        </ul>
     </body>
 </html>

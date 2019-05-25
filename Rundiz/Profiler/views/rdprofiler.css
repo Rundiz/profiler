@@ -7,26 +7,52 @@ body {
 
 
 .rdprofiler {
-    background: #eee;
+    background-color: #eee;
+    background-image: none;
     border: none;
     border-top: 1px solid #bbb;
+    border-image: none;
     box-shadow: 0 -1px rgba(255,255,255,0.2);
     bottom: 0;
+    clear: both;
     color: #333;
+    cursor: default;
     display: block;
+    font-family: Verdana, Tahoma, sans-serif, system-ui;
     font-size: 11px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
     height: 30px;
     left: 0;
+    letter-spacing: normal;
     margin: 0;
+    max-height: none;
+    max-width: none;
+    min-height: 0;
+    min-width: 0;
+    opacity: 1;
+    outline: none;
     padding: 0;
     position: fixed;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0;
+    text-transform: none;
+    transform: none;
+    transition: none;
+    visibility: visible;
+    white-space: normal;
     width: 100%;
+    word-break: break-word;
+    word-spacing: normal;
+    word-wrap: break-word;
     z-index: 100;
 }
 .rdprofiler a {
     color: inherit;
 }
-.rdprofiler a.highlight {
+.rdprofiler a.rdprofiler-highlight {
     color: #896139;
     text-decoration: none;
 }
@@ -92,13 +118,34 @@ body {
 }
 
 
+ul.rdprofiler-log-sections,
 .rdprofiler-log-sections {
+    background: inherit;
+    background-color: inherit;
+    background-image: inherit;
+    border: inherit;
+    border-image: inherit;
+    color: inherit;
     display: table;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
     line-height: 30px;
     list-style: none;
     margin: 0;
     padding: 0;
+    text-align: inherit;
+    text-decoration: inherit;
+    text-indent: inherit;
+    text-transform: inherit;
     vertical-align: middle;
+    white-space: inherit;
+    word-break: inherit;
+    word-spacing: inherit;
+    word-wrap: inherit;
 }
 .rdprofiler-log-sections > li {
     border: none;

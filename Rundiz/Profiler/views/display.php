@@ -29,7 +29,7 @@ rdProfilerLoadJs();
 <div class="rdprofiler">
     <div class="rdprofiler-container">
         <ul class="rdprofiler-log-sections">
-            <li><strong><a href="http://rundiz.com" target="vendor" class="highlight">Rundiz</a></strong>\Profiler</li>
+            <li><strong><a href="http://rundiz.com" target="vendor" class="rdprofiler-highlight">Rundiz</a></strong>\Profiler</li>
             <?php 
             include 'display-PHP.php';
             if (is_array($this->log_sections)) {
