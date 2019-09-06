@@ -49,6 +49,9 @@ body {
     word-wrap: break-word;
     z-index: 100;
 }
+.rdprofiler * {
+    box-sizing: content-box;
+}
 .rdprofiler a {
     color: inherit;
 }
@@ -58,6 +61,14 @@ body {
 }
 .rdprofiler strong {
     font-weight: bold;
+}
+.rdprofiler tbody,
+.rdprofiler tfoot,
+.rdprofiler thead {
+    border: none;
+}
+.rdprofiler ul {
+    font-size: inherit;
 }
 
 
@@ -112,6 +123,9 @@ body {
 .rdprofiler-log-logtypes td.rdprofiler-log-logtype,
 .rdprofiler-log-logtypes th {
     border: none;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
     margin: 0;
     padding: 3px 5px;
     width: 12.5%;
@@ -211,7 +225,12 @@ ul.rdprofiler-log-sections,
 
 .rdprofiler-log-sections ul li .rdprofiler-log-data {
     background-color: transparent;
+    border: none;
+    border-radius: 0;
     color: #333;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
