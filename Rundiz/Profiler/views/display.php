@@ -26,6 +26,9 @@ rdProfilerLoadJs();
 </script>
 <!-- end javascript for Rundiz/Profiler -->
 
+<?php 
+ob_start('rdProfilerMinifyOutput', 1);
+?>
 <div class="rdprofiler">
     <div class="rdprofiler-container">
         <ul class="rdprofiler-log-sections">
@@ -74,4 +77,6 @@ rdProfilerLoadJs();
     </div><!--.rdprofiler-container-->
 </div><!--.rdprofiler-->
 <?php
+$output = ob_get_clean();
 unset($number);
+echo $output;

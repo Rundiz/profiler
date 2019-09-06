@@ -87,3 +87,45 @@ function rdProfilerLoadJs($file = 'rdprofiler')
         echo '    // '.$file.'.js could not be found. -------------------'."\n";
     }
 }// rdProfilerLoadJs
+
+
+/**
+ * Minify HTML output.
+ * 
+ * @link https://stackoverflow.com/a/10423788/128761 Original source code.
+ * @param string $buffer
+ * @return string
+ */
+function rdProfilerMinifyOutput($buffer)
+{
+    global $rundizProfilerMinifyHtml;
+    if ($rundizProfilerMinifyHtml === false) {
+        return $buffer;
+    }
+
+    // sanitize newline
+    $buffer = str_replace(["\r\n", "\r"], "\n", $buffer);
+    $search = array(
+        '/\>[^\S ]+/s', //strip whitespaces after tags, except space
+        '/[^\S ]+\</s', //strip whitespaces before tags, except space
+        '/(\s)+/s'  // shorten multiple whitespace sequences
+    );
+    $replace = array(
+        '>',
+        '<',
+        '\\1'
+    );
+    $blocks = preg_split('/(<\/?pre[^>]*>)/', $buffer, null, PREG_SPLIT_DELIM_CAPTURE);
+    $buffer = '';
+    foreach ($blocks as $i => $block) {
+        if ($i % 4 == 2) {
+            $buffer .= $block; //break out <pre>...</pre> with \n's
+        } else {
+            $buffer .= preg_replace($search, $replace, $block);
+        }
+    }
+    // end of pre tag no need new line.
+    $buffer = str_replace('</pre>' . "\n", '</pre>', $buffer);
+
+    return $buffer;
+}// rdProfilerMinifyOutput

@@ -22,7 +22,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * @var boolean Set to true for beautiful indent, false for not indent. The indent html result makes code looks easier.
+     * @var bool Set to `true` for beautiful indent, `false` for not indent. The indent HTML result makes code looks easier.
      */
     public $beautifulIndent = false;
 
@@ -33,6 +33,12 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      * @var \Rundiz\Profiler\Console for access console class
      */
     public $Console;
+
+
+    /**
+     * @var bool Set to `true` to minify HTML output, `false` for not. If this was set to `true` then the beautiful indent will be ignored.
+     */
+    public $minifyHtml = false;
 
 
     /**
@@ -82,6 +88,8 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
         global $rundizProfilerBeautifulIndent;
         $rundizProfilerBeautifulIndent = $this->beautifulIndent;
+        global $rundizProfilerMinifyHtml;
+        $rundizProfilerMinifyHtml = $this->minifyHtml;
 
         // return display views.
         ob_start();
