@@ -30,5 +30,10 @@
             <li><a href="styles/basic-bulma0.php">Bulma 0</a></li>
             <li><a href="styles/basic-pure1.php">Pure 1</a></li>
         </ul>
+
+        <h2 style="margin-top: 40px;">Some more special design</h2>
+        <ul>
+            <li><a href="extra-design/test-exists-footer.php">Page that footer always appear.</a></li>
+        </ul>
     </body>
 </html>
