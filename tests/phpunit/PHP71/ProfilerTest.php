@@ -1,7 +1,8 @@
 <?php
 
 
-namespace Rundiz\Profiler\Tests;
+namespace Rundiz\Profiler\Tests\PHP71;
+
 
 class ProfilerTest extends \PHPUnit\Framework\TestCase
 {
@@ -13,7 +14,7 @@ class ProfilerTest extends \PHPUnit\Framework\TestCase
     public $Profiler;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->Profiler = new \Rundiz\Profiler\Profiler();
         $this->Profiler->Console->registerLogSections(['Logs', 'Time Load', 'Memory Usage', 'Files']);
@@ -51,7 +52,7 @@ class ProfilerTest extends \PHPUnit\Framework\TestCase
     }// setUp.
 
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->Profiler = null;
     }// tearDown
