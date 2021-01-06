@@ -15,7 +15,7 @@
             <li><a href="test-input.php">Input Test</a>: Log, Memory usage, Session, Method get data, Method post data</li>
             <li>
                 <a href="test-full.php">Full Test</a>: Log, Time Load, Memory usage, Database, Files, Session, Method get data, Method post data<br>
-                <small class="help">Please open this file at <?php echo realpath('test-full.php'); ?> and follow instruction in the file before go to &quot;Full Test&quot;.</small>
+                <small class="help">Please open this file at <?php echo realpath('test-full.original.php'); ?> and follow instruction in the file before go to &quot;Full Test&quot;.</small>
             </li>
         </ul>
 
