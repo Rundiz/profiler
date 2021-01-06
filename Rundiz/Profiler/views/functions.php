@@ -49,6 +49,10 @@ function rdProfilerLoadCss($file = 'rdprofiler')
         fclose($handle);
         unset($handle);
 
+        // remove block comments
+        // @link https://stackoverflow.com/a/51004762/128761 Original source code.
+        // @link https://stackoverflow.com/a/3984887/128761 Improved by matched only beginning of file to prevent matched inside string.
+        $css_content = preg_replace('~^(\s*)\Q/*\E[\s\S]+?\Q*/\E$(\R+)~m', '', $css_content);
         // remove any new line and multiple spaces. we will put this css file content into js variable.
         $css_content = str_replace(["\r\n", "\r", "\n", "\t", "  "], '', $css_content);
         // replace or escape any double quote because it will break js variable (var variable = "css content here";)
@@ -79,6 +83,18 @@ function rdProfilerLoadJs($file = 'rdprofiler')
         $js_content = fread($handle, filesize($js_file));
         fclose($handle);
         unset($handle);
+
+        // remove block comments
+        // @link https://stackoverflow.com/a/51004762/128761 Original source code.
+        // @link https://stackoverflow.com/a/3984887/128761 Improved by matched only beginning of file to prevent matched inside string.
+        $js_content = preg_replace('~^(\s*)\Q/*\E[\s\S]+?\Q*/\E$(\R+)~m', '', $js_content);
+        // remove inline comments
+        $js_content = preg_replace('~^(\s*)//(.+)$~m', '', $js_content);
+        // remove multiple spaces.
+        $js_content = preg_replace('/\h{2,}/', '', $js_content);
+        // remove empty lines
+        // @link https://gist.github.com/fomightez/706c1934a07c08b6c441 Original source code.
+        $js_content = preg_replace('/^(?:[\t ]*(?:\r?\n|\r))+/m', '', $js_content);
 
         echo '    // '.$file.'.js was loaded into inline js. -------------------'."\n";
         echo $js_content;
