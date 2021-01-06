@@ -43,7 +43,6 @@ function rdProfilerLoadCss($file = 'rdprofiler')
 {
     $css_file = __DIR__.DIRECTORY_SEPARATOR.$file.'.css';
     if (file_exists($css_file) && is_file($css_file)) {
-        // use fopen, fread because it does not consume much memory. ( https://stackoverflow.com/a/2749458/128761 )
         $handle = fopen($css_file, 'r');
         $css_content = fread($handle, filesize($css_file));
         fclose($handle);
@@ -78,7 +77,6 @@ function rdProfilerLoadJs($file = 'rdprofiler')
 {
     $js_file = __DIR__.DIRECTORY_SEPARATOR.$file.'.js';
     if (is_file($js_file)) {
-        // use fopen, fread because it does not consume much memory. ( https://stackoverflow.com/a/2749458/128761 )
         $handle = fopen($js_file, 'r');
         $js_content = fread($handle, filesize($js_file));
         fclose($handle);
