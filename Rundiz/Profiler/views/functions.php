@@ -129,7 +129,7 @@ function rdProfilerMinifyOutput($buffer)
         '<',
         '\\1'
     );
-    $blocks = preg_split('/(<\/?pre[^>]*>)/', $buffer, null, PREG_SPLIT_DELIM_CAPTURE);
+    $blocks = preg_split('/(<\/?pre[^>]*>)/', $buffer, -1, PREG_SPLIT_DELIM_CAPTURE);
     $buffer = '';
     foreach ($blocks as $i => $block) {
         if ($i % 4 == 2) {

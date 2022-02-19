@@ -43,10 +43,10 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                             echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'.$ini_name.'</pre>'."\n";
                             echo rdProfilerIndent(6).'<div class="rdprofiler-log-phpextversion">'."\n";
                             if (is_array($items) && array_key_exists('global_value', $items)) {
-                                echo rdProfilerIndent(7).'<strong>Global value:</strong> '.gettype($items['global_value']).' \''.htmlspecialchars($items['global_value'], ENT_QUOTES).'\'<br>'."\n";
+                                echo rdProfilerIndent(7).'<strong>Global value:</strong> '.gettype($items['global_value']).' \''.htmlspecialchars((string) $items['global_value'], ENT_QUOTES).'\'<br>'."\n";
                             }
                             if (is_array($items) && array_key_exists('local_value', $items)) {
-                                echo rdProfilerIndent(7).'<strong>Local value:</strong> '.gettype($items['local_value']).' \''.htmlspecialchars($items['local_value'], ENT_QUOTES).'\'<br>'."\n";
+                                echo rdProfilerIndent(7).'<strong>Local value:</strong> '.gettype($items['local_value']).' \''.htmlspecialchars((string) $items['local_value'], ENT_QUOTES).'\'<br>'."\n";
                             }
                             echo rdProfilerIndent(6).'</div>'."\n";
                             echo rdProfilerIndent(5).'</li>'."\n";

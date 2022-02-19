@@ -117,7 +117,7 @@ $dbh = rdpConnectDb($configdb);
         ];
         foreach ($queries as $statement) {
             $sth = rdpDbQuery($dbh, $statement);
-            echo '<p>Querying: <code>'.htmlspecialchars($statement).'</code> have '.$sth->rowCount().' rows.</p>'."\n";
+            echo '<p>Querying: <code>'.htmlspecialchars((string) $statement).'</code> have '.$sth->rowCount().' rows.</p>'."\n";
         }
         unset($queries, $statement);
         ?> 

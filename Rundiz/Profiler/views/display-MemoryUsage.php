@@ -46,7 +46,7 @@ echo "\n";
                             // if contain file and line data then display it. this appears in these sections: Logs, Time Load, Memory Usage.
                             echo rdProfilerIndent(6).'<div class="rdprofiler-log-fileline">';
                             if (isset($data_values['file']) && $data_values['file'] != null) {
-                                echo htmlspecialchars($data_values['file'], ENT_QUOTES);
+                                echo htmlspecialchars((string) $data_values['file'], ENT_QUOTES);
                             }
                             if ((isset($data_values['file']) && $data_values['file'] != null) && (isset($data_values['line']) && $data_values['line'] != null)) {
                                 echo ', line ';
@@ -87,7 +87,7 @@ echo "\n";
                             if (isset($section_to_id) && isset($section_matchKey_id)) {
                                 echo '<a href="#'.$section_matchKey_id.'" onclick="return RundizProfiler.scrollTo(\'#Section'.$section_to_id.' ul\', \'.'.$section_matchKey_id.'\', jQuery(this));">';
                             }
-                            echo htmlspecialchars($data_values['matchKey'], ENT_QUOTES);// the match key name.
+                            echo htmlspecialchars((string) $data_values['matchKey'], ENT_QUOTES);// the match key name.
                             if (isset($section_to_id) && isset($section_matchKey_id)) {
                                 echo '</a>.';
                             }

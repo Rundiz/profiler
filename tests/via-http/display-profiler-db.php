@@ -60,7 +60,7 @@ class rdpDisplayProfilerDb
                 if (isset($exp_data) && is_array($exp_data)) {
                     foreach ($exp_data as $key => $sqldata) {
                         if ($key != 0 && !empty($sqldata)) {
-                            echo htmlspecialchars($sqldata, ENT_QUOTES).' cannot be explain due to it might be SQL injection!<br>'."\n";
+                            echo htmlspecialchars((string) $sqldata, ENT_QUOTES).' cannot be explain due to it might be SQL injection!<br>'."\n";
                         }
                     }// endforeach;
                     unset($key, $sqldata);
