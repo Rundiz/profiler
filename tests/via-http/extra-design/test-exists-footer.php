@@ -84,7 +84,7 @@ require dirname(__DIR__).'/common-test-functions.php';
                 </div>
             </main>
             <footer class="page-footer">
-                This page footer should be always appear at the bottom.
+                This page footer should be always appear at the bottom. It is not sticky bottom but will not be covered by the profiler bar.
             </footer>
         </div><!--.page-wrapper-->
         <?php
