@@ -196,6 +196,9 @@ ul.rdprofiler-log-sections,
     background-color: #ddd;
 }
 .rdprofiler-log-sections li.rdprofiler-see-details.active ul {
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    border-top: 1px solid #bbb;
     display: block;
 }
 .rdprofiler-log-sections ul li {
@@ -217,6 +220,10 @@ ul.rdprofiler-log-sections,
 }
 .rdprofiler-log-sections ul li.rdprofiler-log-summary-row {
     font-weight: bold;
+}
+.rdprofiler-log-sections ul li > * {
+    word-break: break-all;
+    word-wrap: break-word;
 }
 .rdprofiler-log-sections ul li > div,
 .rdprofiler-log-sections ul li > pre {
@@ -249,9 +256,24 @@ ul.rdprofiler-log-sections,
     width: 100%;
 }
 .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
-    width: 200px;
+    width: 90px;
     word-break: break-all;
     word-wrap: break-word;
+}
+@media (min-width: 500px) {
+    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+        width: 130px;
+    }
+}
+@media (min-width: 700px) {
+    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+        width: 170px;
+    }
+}
+@media (min-width: 900px) {
+    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+        width: 200px;
+    }
 }
 .rdprofiler-log-sections ul li .rdprofiler-log-db-timetake,
 .rdprofiler-log-sections ul li .rdprofiler-log-filesize,

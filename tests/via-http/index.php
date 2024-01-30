@@ -36,5 +36,8 @@
         <ul>
             <li><a href="extra-design/test-exists-footer.php">Page that footer always appear.</a></li>
         </ul>
+
+        <hr>
+        <p>Fork me on <a href="https://github.com/Rundiz/profiler" target="github">GitHub</a></p>
     </body>
 </html>

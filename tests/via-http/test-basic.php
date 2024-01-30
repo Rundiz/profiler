@@ -18,13 +18,13 @@ require __DIR__.'/common-test-functions.php';
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Rundiz\Profiler test</title>
+        <title>Rundiz\Profiler Basic test</title>
         
         <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <h1>Rundiz\Profiler test</h1>
+        <h1>Rundiz\Profiler Basic test</h1>
         <p>This page test followings:</p>
         <ul>
             <li>Log</li>

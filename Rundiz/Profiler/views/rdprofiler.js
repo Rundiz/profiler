@@ -5,6 +5,173 @@
 
 class RundizProfiler {
 
+
+    constructor() {
+        this.#listenAJAXResponseForProfiler();
+    }// constructor
+
+
+    /**
+     * Format bytes.
+     * 
+     * @link https://stackoverflow.com/a/18650828/128761 Original source code.
+     * @since 1.1.6
+     * @param {int} bytes
+     * @param {int} decimals
+     * @returns {String}
+     */
+    #formatBytes(bytes, decimals = 2) {
+        if (!+bytes)
+            return '0 Bytes'
+
+        const k = 1024
+        const dm = decimals < 0 ? 0 : decimals
+        const sizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+    }// #formatBytes
+
+
+    /**
+     * Listen on AJAX response that contain rundiz profiler result in it and display in the profiler bar.
+     * 
+     * @since 1.1.6
+     * @link https://stackoverflow.com/a/27363569/128761 Original souce code that support `XMLHttpRequest`, `jQuery.ajax()`.
+     * @link https://blog.logrocket.com/intercepting-javascript-fetch-api-requests-responses/ Original source code that support `fetch()`.
+     * @returns {undefined}
+     */
+    #listenAJAXResponseForProfiler() {
+        const thisClass = this;
+
+        // listen AJAX requested via `XMLHttpRequest`, `jQuery.ajax()`.
+        var origOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function() {
+            this.addEventListener('loadend', function() {
+                const responseType = this.getResponseHeader('content-type');
+                const responseText = this.responseText;
+                try {
+                    if (responseType.toLowerCase().includes('/json') === true) {
+                        const JSONObj = JSON.parse(responseText);
+                        if (typeof(JSONObj) === 'object' && typeof(JSONObj['rundiz-profiler']) !== 'undefined') {
+                            thisClass.#renderAJAXResponseForProfiler(JSONObj);
+                        }
+                    }
+                } catch (ex) {
+                    console.debug('[rundiz-profiler]: Unable to parse JSON: ' + ex);
+                }
+            });
+            origOpen.apply(this, arguments);
+        };
+
+        // listen AJAX requested via `fetch()`.
+        const { fetch: originalFetch } = window;
+        window.fetch = async (...args) => {
+            let [resource, config] = args;
+            let response = await originalFetch(resource, config);
+
+            // clone the response for checking and render result.
+            const response2 = response.clone();
+            response2.json().then((data) => {
+                if (typeof(data) === 'object' && typeof(data['rundiz-profiler']) !== 'undefined') {
+                    thisClass.#renderAJAXResponseForProfiler(data);
+                }
+            });
+
+            return response;
+        };
+    }// #listenAJAXResponseForProfiler
+
+
+    /**
+     * Render AJAX response result that contain rundiz profiler data to profiler bar.
+     * 
+     * @since 1.1.6
+     * @param {object} JSONObj
+     * @returns {undefined}
+     */
+    #renderAJAXResponseForProfiler(JSONObj) {
+        if (typeof(JSONObj['rundiz-profiler']) !== 'object' && typeof(JSONObj['rundiz-profiler']?.logSections) !== 'object') {
+            return ;
+        }
+        const logSections = JSONObj['rundiz-profiler'].logSections;
+
+        // render session section. ----------------------------------------------------------
+        if (logSections?.Session && document.querySelector('.rdprofiler #SectionSession')) {
+            const htmlSectionSession = document.querySelector('.rdprofiler #SectionSession > ul');
+            htmlSectionSession.innerHTML = '';
+            // set section's items to list panel.
+            for (const item of logSections.Session) {
+                let resultHTML = '<li>'
+                    + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
+                    + '<pre class="rdprofiler-log-inputs-value">' + item.inputvalue + '</pre>'
+                    + '</li>';
+                htmlSectionSession.insertAdjacentHTML('beforeend', resultHTML);
+            }// endfor; loop items of this section.
+            // modify total items.
+            const profileTabHTML = document.querySelector('.rdprofiler #SectionSession > .see-details');
+            profileTabHTML.outerHTML = profileTabHTML.outerHTML.replace(/([\d]+)/g, logSections.Session.length);
+        }
+
+        // render get, post section. ----------------------------------------------------------
+        const allowedSections = ['Get', 'Post'];
+        for (const section in logSections) {
+            if (!allowedSections.includes(section)) {
+                continue;
+            }
+            if (!document.querySelector('.rdprofiler #Section' + section)) {
+                console.warn('[rundiz-profiler]: Section tab #Section' + section + ' could not be found.');
+                continue;
+            }
+
+            const htmlSectionUl = document.querySelector('.rdprofiler #Section' + section + ' > ul');
+            // append section's items to list panel.
+            for (const item of logSections[section]) {
+                let resultHTML = '<li>'
+                    + '<pre class="rdprofiler-log-data">(XHR) ' + item.data + '</pre>'
+                    + '<pre class="rdprofiler-log-inputs-value">' + item.inputvalue + '</pre>'
+                    + '</li>';
+                htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
+            }// endfor; loop items of this section.
+            // modify total items.
+            const profileTabHTML = document.querySelector('.rdprofiler #Section' + section + ' > .see-details');
+            const currentTotalRegex = /(?<total>[\d]+)/g;
+            let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
+            currentTotal = currentTotal.groups.total;
+            profileTabHTML.outerHTML = profileTabHTML.outerHTML.replace(/([\d]+)/g, parseInt(logSections[section].length) + parseInt(currentTotal));
+        }// endfor;
+
+        // render database section. ----------------------------------------------------------
+        if (logSections?.Database && document.querySelector('.rdprofiler #SectionDatabase')) {
+            const htmlSectionUl = document.querySelector('.rdprofiler #SectionDatabase > ul');
+            // append section's items to list panel.
+            for (const item of logSections.Database) {
+                let resultHTML = '<li>'
+                    + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
+                    + '<div class="rdprofiler-log-db-timetake">' + ((parseFloat(item.time_end) - parseFloat(item.time_start)) * 1000).toFixed(3) + ' ms</div>'
+                    + '<div class="rdprofiler-log-memory">' + this.#formatBytes((parseFloat(item.memory_end) - parseFloat(item.memory_start))) + '</div>'
+                    + '<div class="rdprofiler-log-newrow"><div class="rdprofiler-log-db-explain"></div></div>'
+                    + '<div class="rdprofiler-log-newrow"><div class="rdprofiler-log-db-trace"><strong>Call trace (XHR):</strong><br>';
+                if (item?.call_trace) {
+                    for (const traceItem of item.call_trace) {
+                        resultHTML += traceItem.file + ', line' + traceItem.line + '<br>';
+                    }
+                }
+                resultHTML += '</div></div>'// end db backtrace.
+                    + '</li>';
+                htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
+            }// endfor; loop items of this section.
+            // modify total items.
+            const profileTabHTML = document.querySelector('.rdprofiler #SectionDatabase > .see-details');
+            const currentTotalRegex = /(?<total>[\d]+)/g;
+            let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
+            currentTotal = currentTotal.groups.total;
+            profileTabHTML.outerHTML = profileTabHTML.outerHTML.replace(/([\d]+)/g, parseInt(logSections.Database.length) + parseInt(currentTotal));
+        }// endif; Database section.
+    }// #renderAJAXResponseForProfiler
+
+
     /**
      * Load CSS in the `rundizProfilerCss` variable into HTML head section by create `<style>` element and set content into it.
      * 
@@ -40,13 +207,13 @@ class RundizProfiler {
         if ($CurrentElement.prevAll(matchKey).length) {
             // if previous matchKey exists, use that one.
             $ScrollTo = $CurrentElement.prevAll(matchKey).offset().top;
-            //console.log('use previous matchKey.');
-            //console.log(($ScrollTo - $Container.offset().top + $Container.scrollTop()));
+            //console.log('[rundiz-profiler]: use previous matchKey.');
+            //console.log('[rundiz-profiler]: ' + ($ScrollTo - $Container.offset().top + $Container.scrollTop()));
         } else if ($CurrentElement.nextAll(matchKey).length) {
             // if next matchKey exists, use that one.
             $ScrollTo = $CurrentElement.nextAll(matchKey).offset().top;
-            //console.log('use next matchKey.');
-            //console.log(($ScrollTo - $Container.offset().top + $Container.scrollTop()));
+            //console.log('[rundiz-profiler]: use next matchKey.');
+            //console.log('[rundiz-profiler]: ' + ($ScrollTo - $Container.offset().top + $Container.scrollTop()));
         }
 
         if (typeof($ScrollTo) !== 'undefined') {
@@ -84,15 +251,15 @@ class RundizProfiler {
  * @type Integer rundizProfilerElementHeight The rundiz profiler element height.
  */
 var rundizProfilerElementHeight;
+// move new rundiz profiler class to out side DOM ready to make listen task(s) run before the others.
+const rundizProfilerObj = new RundizProfiler();
 
 
 jQuery(document).ready(function($) {
-    let rundizProfiler = new RundizProfiler();
-
     // load CSS into HTML > head
-    rundizProfiler.loadCss();
+    rundizProfilerObj.loadCss();
     // set class to body and element height value to var.
-    rundizProfiler.setClassAndValue();
+    rundizProfilerObj.setClassAndValue();
 
     // set active class to show details panel on click, unset active on click again.
     $('.rdprofiler-see-details').on('click', 'a.see-details', function() {

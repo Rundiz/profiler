@@ -44,7 +44,8 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
     /**
      * class constructor.
      */
-    public function __construct() {
+    public function __construct() 
+    {
         $this->start_time = $this->getMicrotime(true);
 
         if (!class_exists('\\Rundiz\\Profiler\\Console')) {
@@ -249,7 +250,51 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
         $this->log_sections['Session'] = $section_data_array;
         unset($section_data_array);
-    }// Session
+    }// gatherInputSession
+
+
+    /**
+     * get microtime.
+     * 
+     * @param boolean $at_start set to true if this microtime is get at the very beginning of the app. this can allow newer php version to use $_SERVER['REQUEST_TIME_FLOAT'];
+     * @return float microtime in float.
+     */
+    public function getMicrotime($at_start = false)
+    {
+        if ($at_start === true && is_array($_SERVER) && array_key_exists('REQUEST_TIME_FLOAT', $_SERVER)) {
+            return floatval($_SERVER['REQUEST_TIME_FLOAT']);
+        }
+
+        return floatval(microtime(true));
+    }// getMicrotime
+
+
+    /**
+     * Get log sections in array format.
+     * 
+     * This can be use with custom rendering or response via AJAX.
+     * 
+     * @see ProfilerBase->log_sections
+     * @since 1.1.6
+     * @return array
+     */
+    public function getLogSectionsForResponse()
+    {
+        // re-format the result to be ready to render in JS. (There is no `print_r()` in JS.)
+        foreach ($this->log_sections as $section => $dataArray) {
+            if (is_array($dataArray)) {
+                foreach ($dataArray as $dataIndex => $dataItem) {
+                    if (is_array($dataItem) && array_key_exists('inputvalue', $dataItem)) {
+                        $dataItem['inputvalue'] = print_r($dataItem['inputvalue'], true);
+                        $this->log_sections[$section][$dataIndex] = $dataItem;
+                    }
+                }// endforeach;
+                unset($dataIndex, $dataItem);
+            }
+        }
+
+        return $this->log_sections;
+    }// getLogSectionsForResponse
 
 
     /**
@@ -260,7 +305,8 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      * @param string $retstring
      * @return string
      */
-    public function getReadableFileSize($size, $retstring = null) {
+    public function getReadableFileSize($size, $retstring = null)
+    {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
         $sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
@@ -286,29 +332,14 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * get microtime.
-     * 
-     * @param boolean $at_start set to true if this microtime is get at the very beginning of the app. this can allow newer php version to use $_SERVER['REQUEST_TIME_FLOAT'];
-     * @return float microtime in float.
-     */
-    public function getMicrotime($at_start = false)
-    {
-        if ($at_start === true && is_array($_SERVER) && array_key_exists('REQUEST_TIME_FLOAT', $_SERVER)) {
-            return floatval($_SERVER['REQUEST_TIME_FLOAT']);
-        }
-
-        return floatval(microtime(true));
-    }// getMicrotime
-
-
-    /**
      * get readable time.<br>
      * copy from php quick profiler
      * 
      * @param integer $time
      * @return string
      */
-    public function getReadableTime($time) {
+    public function getReadableTime($time) 
+    {
         $ret = $time;
         $formatter = 0;
         $formats = ['ms', 's', 'm'];
