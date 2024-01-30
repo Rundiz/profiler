@@ -24,6 +24,7 @@
         <ul>
             <li><a href="styles/basic-bootstrap3.php">Bootstrap 3</a></li>
             <li><a href="styles/basic-bootstrap4.php">Bootstrap 4</a></li>
+            <li><a href="styles/basic-bootstrap5.php">Bootstrap 5</a></li>
             <li><a href="styles/basic-foundation5.php">Foundation 5</a></li>
             <li><a href="styles/basic-foundation6.php">Foundation 6</a></li>
             <li><a href="styles/basic-skeleton1.php">Skeleton 1</a></li>

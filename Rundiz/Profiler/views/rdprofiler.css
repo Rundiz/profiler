@@ -13,6 +13,7 @@ body {
     border-top: 1px solid #bbb;
     border-image: none;
     box-shadow: 0 -1px rgba(255,255,255,0.2);
+    box-sizing: content-box;
     bottom: 0;
     clear: both;
     color: #333;
@@ -54,6 +55,7 @@ body {
 }
 .rdprofiler a {
     color: inherit;
+    text-decoration: none;
 }
 .rdprofiler a.rdprofiler-highlight {
     color: #896139;
