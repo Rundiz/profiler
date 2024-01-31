@@ -112,6 +112,9 @@ class RundizProfiler {
                 console.warn('[rundiz-profiler]: Section tab #Section' + section + ' could not be found.');
                 continue;
             }
+            if (logSections[section].length <= 0) {
+                continue;
+            }
 
             const htmlSectionUl = document.querySelector('.rdprofiler #Section' + section + ' > ul');
             // append section's items to list panel.
@@ -132,7 +135,7 @@ class RundizProfiler {
         }// endfor;
 
         // render database section. ----------------------------------------------------------
-        if (logSections?.Database && document.querySelector('.rdprofiler #SectionDatabase')) {
+        if (logSections?.Database && logSections.Database.length > 0 && document.querySelector('.rdprofiler #SectionDatabase')) {
             const htmlSectionUl = document.querySelector('.rdprofiler #SectionDatabase > ul');
             // append section's items to list panel.
             htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session</div></li>');
