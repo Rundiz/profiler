@@ -8,7 +8,7 @@ $summary = count($data_array);
 echo "\n";
 ?>
             <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="see-details" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
                     <li class="rdprofiler-log-summary-row">
                         <table class="rdprofiler-log-logtypes">

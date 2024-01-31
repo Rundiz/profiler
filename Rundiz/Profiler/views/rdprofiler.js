@@ -97,25 +97,8 @@ class RundizProfiler {
         }
         const logSections = JSONObj['rundiz-profiler'].logSections;
 
-        // render session section. ----------------------------------------------------------
-        if (logSections?.Session && document.querySelector('.rdprofiler #SectionSession')) {
-            const htmlSectionSession = document.querySelector('.rdprofiler #SectionSession > ul');
-            htmlSectionSession.innerHTML = '';
-            // set section's items to list panel.
-            for (const item of logSections.Session) {
-                let resultHTML = '<li>'
-                    + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
-                    + '<pre class="rdprofiler-log-inputs-value">' + item.inputvalue + '</pre>'
-                    + '</li>';
-                htmlSectionSession.insertAdjacentHTML('beforeend', resultHTML);
-            }// endfor; loop items of this section.
-            // modify total items.
-            const profileTabHTML = document.querySelector('.rdprofiler #SectionSession > .see-details');
-            profileTabHTML.outerHTML = profileTabHTML.outerHTML.replace(/([\d]+)/g, logSections.Session.length);
-        }
-
         // render get, post section. ----------------------------------------------------------
-        const allowedSections = ['Get', 'Post'];
+        const allowedSections = ['Get', 'Post', 'Session'];
         for (const section in logSections) {
             if (!allowedSections.includes(section)) {
                 continue;
@@ -127,6 +110,7 @@ class RundizProfiler {
 
             const htmlSectionUl = document.querySelector('.rdprofiler #Section' + section + ' > ul');
             // append section's items to list panel.
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session</div></li>');
             for (const item of logSections[section]) {
                 let resultHTML = '<li>'
                     + '<pre class="rdprofiler-log-data">(XHR) ' + item.data + '</pre>'
@@ -135,7 +119,7 @@ class RundizProfiler {
                 htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
             }// endfor; loop items of this section.
             // modify total items.
-            const profileTabHTML = document.querySelector('.rdprofiler #Section' + section + ' > .see-details');
+            const profileTabHTML = document.querySelector('.rdprofiler #Section' + section + ' > .rdprofiler-see-details-link');
             const currentTotalRegex = /(?<total>[\d]+)/g;
             let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
             currentTotal = currentTotal.groups.total;
@@ -146,6 +130,7 @@ class RundizProfiler {
         if (logSections?.Database && document.querySelector('.rdprofiler #SectionDatabase')) {
             const htmlSectionUl = document.querySelector('.rdprofiler #SectionDatabase > ul');
             // append section's items to list panel.
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session</div></li>');
             for (const item of logSections.Database) {
                 let resultHTML = '<li>'
                     + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
@@ -163,7 +148,7 @@ class RundizProfiler {
                 htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
             }// endfor; loop items of this section.
             // modify total items.
-            const profileTabHTML = document.querySelector('.rdprofiler #SectionDatabase > .see-details');
+            const profileTabHTML = document.querySelector('.rdprofiler #SectionDatabase > .rdprofiler-see-details-link');
             const currentTotalRegex = /(?<total>[\d]+)/g;
             let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
             currentTotal = currentTotal.groups.total;
@@ -262,12 +247,12 @@ jQuery(document).ready(function($) {
     rundizProfilerObj.setClassAndValue();
 
     // set active class to show details panel on click, unset active on click again.
-    $('.rdprofiler-see-details').on('click', 'a.see-details', function() {
-        if ($(this).closest('li').hasClass('active')) {
-            $('.rdprofiler-see-details').removeClass('active');
+    $('.rdprofiler-see-details').on('click', 'a.rdprofiler-see-details-link', function() {
+        if ($(this).closest('li').hasClass('rdprofiler-log-section-active')) {
+            $('.rdprofiler-see-details').removeClass('rdprofiler-log-section-active');
         } else {
-            $('.rdprofiler-see-details').removeClass('active');
-            $(this).closest('li').addClass('active');
+            $('.rdprofiler-see-details').removeClass('rdprofiler-log-section-active');
+            $(this).closest('li').addClass('rdprofiler-log-section-active');
         }
     });
 });

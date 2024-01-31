@@ -18,7 +18,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
 }
 ?> 
             <li id="SectionPhpVersion" class="rdprofiler-see-details" title="PHP <?php echo phpversion(); ?>">
-                <a class="see-details"><strong>PHP</strong> <?php echo phpversion(); ?></a>
+                <a class="rdprofiler-see-details-link"><strong>PHP</strong> <?php echo phpversion(); ?></a>
                 <ul>
                     <?php 
                     echo "\n";

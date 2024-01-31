@@ -192,10 +192,10 @@ ul.rdprofiler-log-sections,
     right: 10px;
     z-index: 100;
 }
-.rdprofiler-log-sections li.rdprofiler-see-details.active {
+.rdprofiler-log-sections li.rdprofiler-see-details.rdprofiler-log-section-active {
     background-color: #ddd;
 }
-.rdprofiler-log-sections li.rdprofiler-see-details.active ul {
+.rdprofiler-log-sections li.rdprofiler-see-details.rdprofiler-log-section-active ul {
     border-left: 1px solid #bbb;
     border-right: 1px solid #bbb;
     border-top: 1px solid #bbb;
@@ -217,6 +217,10 @@ ul.rdprofiler-log-sections,
 }
 .rdprofiler-log-sections ul li:hover {
     background-color: rgba(255,255,255,0.2);
+}
+.rdprofiler-log-sections ul li.rdprofiler-new-xhr-session {
+    border-top: 2px dotted #bbb;
+    font-weight: bold;
 }
 .rdprofiler-log-sections ul li.rdprofiler-log-summary-row {
     font-weight: bold;

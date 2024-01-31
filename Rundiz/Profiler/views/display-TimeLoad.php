@@ -8,7 +8,7 @@ $summary = $this->getReadableTime(($this->end_time-$this->start_time)*1000);
 echo "\n";
 ?>
             <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="see-details" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
                     <li class="rdprofiler-log-summary-row">
                         <div class="rdprofiler-log-data">Data</div>
