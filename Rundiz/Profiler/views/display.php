@@ -12,7 +12,7 @@ if (class_exists('\\Rundiz\\Number\\Number')) {
 ?>
 
 <!-- begins javascript for Rundiz/Profiler -->
-<script type="text/javascript">
+<script>
     //<![CDATA[
 <?php rdProfilerLoadCss(); ?> 
 

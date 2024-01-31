@@ -14,7 +14,7 @@ namespace Rundiz\Profiler;
  * This class works as logger things for profiling.
  * 
  * @package Rundiz\Profiler
- * @version 1.1.6
+ * @version 1.1.7
  * @author Vee W.
  * @access protected Do not access to this class directly by using new \Rundiz\Profiler\Console. Please access this class via Profiler class instead. See $Profiler->Console.
  */

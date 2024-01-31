@@ -6,7 +6,12 @@
 class RundizProfiler {
 
 
+    /**
+     * Class constructor.
+     */
     constructor() {
+        // Listen AJAX response on `XMLHttpRequest` and `fetch()`. 
+        // This must be called before DOM ready because normal AJAX request start after this.
         this.#listenAJAXResponseForProfiler();
     }// constructor
 
@@ -158,6 +163,32 @@ class RundizProfiler {
 
 
     /**
+     * Listen on click and toggle show/hide details panel.
+     * 
+     * @since 1.1.7
+     * @returns {undefined}
+     */
+    listenClickToggleDetailsPanel() {
+        document.addEventListener('click', (event) => {
+            const thisTarget = event.target;
+            const detailsLink = thisTarget?.closest('.rdprofiler-see-details-link');
+            const sectionTab = detailsLink?.closest('.rdprofiler-see-details');
+            if (detailsLink && sectionTab) {
+                if (sectionTab.classList.contains('rdprofiler-log-section-active')) {
+                    sectionTab.classList.remove('rdprofiler-log-section-active');
+                } else {
+                    // close (remove CSS class) all other tabs.
+                    document.querySelectorAll('.rdprofiler-see-details')?.forEach((item) => {
+                        item.classList.remove('rdprofiler-log-section-active');
+                    });
+                    sectionTab.classList.add('rdprofiler-log-section-active');
+                }
+            }
+        });
+    }// listenClickToggleDetailsPanel
+
+
+    /**
      * Load CSS in the `rundizProfilerCss` variable into HTML head section by create `<style>` element and set content into it.
      * 
      * @returns {undefined}
@@ -185,26 +216,26 @@ class RundizProfiler {
      */
     static scrollTo(section, matchKey, thisobj) {
         let $ = jQuery.noConflict();
-        let $Container = $(section);
-        let $CurrentElement = thisobj.parents('li');
-        let $ScrollTo;
+        const Container = $(section);
+        const CurrentElement = thisobj.parents('li');
+        let ScrollTo;
 
-        if ($CurrentElement.prevAll(matchKey).length) {
+        if (CurrentElement.prevAll(matchKey).length) {
             // if previous matchKey exists, use that one.
-            $ScrollTo = $CurrentElement.prevAll(matchKey).offset().top;
+            ScrollTo = CurrentElement.prevAll(matchKey).offset().top;
             //console.log('[rundiz-profiler]: use previous matchKey.');
-            //console.log('[rundiz-profiler]: ' + ($ScrollTo - $Container.offset().top + $Container.scrollTop()));
-        } else if ($CurrentElement.nextAll(matchKey).length) {
+            //console.log('[rundiz-profiler]: ' + (ScrollTo - Container.offset().top + Container.scrollTop()));
+        } else if (CurrentElement.nextAll(matchKey).length) {
             // if next matchKey exists, use that one.
-            $ScrollTo = $CurrentElement.nextAll(matchKey).offset().top;
+            ScrollTo = CurrentElement.nextAll(matchKey).offset().top;
             //console.log('[rundiz-profiler]: use next matchKey.');
-            //console.log('[rundiz-profiler]: ' + ($ScrollTo - $Container.offset().top + $Container.scrollTop()));
+            //console.log('[rundiz-profiler]: ' + (ScrollTo - Container.offset().top + Container.scrollTop()));
         }
 
-        if (typeof($ScrollTo) !== 'undefined') {
-            $Container.scroll();
-            $Container.animate({
-                scrollTop: ($ScrollTo - $Container.offset().top + $Container.scrollTop())
+        if (typeof(ScrollTo) !== 'undefined') {
+            Container.scroll();
+            Container.animate({
+                scrollTop: (ScrollTo - Container.offset().top + Container.scrollTop())
             }, 'fast');
         }
 
@@ -236,23 +267,15 @@ class RundizProfiler {
  * @type Integer rundizProfilerElementHeight The rundiz profiler element height.
  */
 var rundizProfilerElementHeight;
-// move new rundiz profiler class to out side DOM ready to make listen task(s) run before the others.
+// Move new rundiz profiler class to out side DOM ready to make listen task(s) run before the others.
 const rundizProfilerObj = new RundizProfiler();
 
 
-jQuery(document).ready(function($) {
-    // load CSS into HTML > head
+document.addEventListener('DOMContentLoaded', () => {
+    // Load CSS into HTML > head
     rundizProfilerObj.loadCss();
-    // set class to body and element height value to var.
+    // Set class to body and element height value to var.
     rundizProfilerObj.setClassAndValue();
-
-    // set active class to show details panel on click, unset active on click again.
-    $('.rdprofiler-see-details').on('click', 'a.rdprofiler-see-details-link', function() {
-        if ($(this).closest('li').hasClass('rdprofiler-log-section-active')) {
-            $('.rdprofiler-see-details').removeClass('rdprofiler-log-section-active');
-        } else {
-            $('.rdprofiler-see-details').removeClass('rdprofiler-log-section-active');
-            $(this).closest('li').addClass('rdprofiler-log-section-active');
-        }
-    });
+    // Listen on click and toggle details panel.
+    rundizProfilerObj.listenClickToggleDetailsPanel();
 });
