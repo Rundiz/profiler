@@ -53,14 +53,15 @@ class RundizProfiler {
         // listen AJAX requested via `XMLHttpRequest`, `jQuery.ajax()`.
         var origOpen = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function() {
-            this.addEventListener('loadend', function() {
+            const requestURL = arguments[1];
+            this.addEventListener('loadend', function(event) {
                 const responseType = this.getResponseHeader('content-type');
                 const responseText = this.responseText;
                 try {
                     if (responseType.toLowerCase().includes('/json') === true) {
                         const JSONObj = JSON.parse(responseText);
                         if (typeof(JSONObj) === 'object' && typeof(JSONObj['rundiz-profiler']) !== 'undefined') {
-                            thisClass.#renderAJAXResponseForProfiler(JSONObj);
+                            thisClass.#renderAJAXResponseForProfiler(requestURL, JSONObj);
                         }
                     }
                 } catch (ex) {
@@ -80,7 +81,7 @@ class RundizProfiler {
             const response2 = response.clone();
             response2.json().then((data) => {
                 if (typeof(data) === 'object' && typeof(data['rundiz-profiler']) !== 'undefined') {
-                    thisClass.#renderAJAXResponseForProfiler(data);
+                    thisClass.#renderAJAXResponseForProfiler(resource, data);
                 }
             });
 
@@ -93,10 +94,11 @@ class RundizProfiler {
      * Render AJAX response result that contain rundiz profiler data to profiler bar.
      * 
      * @since 1.1.6
+     * @param {string} requestURL 
      * @param {object} JSONObj
      * @returns {undefined}
      */
-    #renderAJAXResponseForProfiler(JSONObj) {
+    #renderAJAXResponseForProfiler(requestURL, JSONObj) {
         if (typeof(JSONObj['rundiz-profiler']) !== 'object' && typeof(JSONObj['rundiz-profiler']?.logSections) !== 'object') {
             return ;
         }
@@ -118,7 +120,7 @@ class RundizProfiler {
 
             const htmlSectionUl = document.querySelector('.rdprofiler #Section' + section + ' > ul');
             // append section's items to list panel.
-            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session</div></li>');
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
             for (const item of logSections[section]) {
                 let resultHTML = '<li>'
                     + '<pre class="rdprofiler-log-data">(XHR) ' + item.data + '</pre>'
@@ -138,7 +140,7 @@ class RundizProfiler {
         if (logSections?.Database && logSections.Database.length > 0 && document.querySelector('.rdprofiler #SectionDatabase')) {
             const htmlSectionUl = document.querySelector('.rdprofiler #SectionDatabase > ul');
             // append section's items to list panel.
-            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session</div></li>');
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
             for (const item of logSections.Database) {
                 let resultHTML = '<li>'
                     + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
