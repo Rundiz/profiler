@@ -41,12 +41,13 @@ body {
     word-wrap: break-word;
 }
 .rdprofiler a,
+.rdprofiler a:link,
 .rdprofiler a:active,
 .rdprofiler a:focus,
 .rdprofiler a:hover, 
 .rdprofiler a:target,
 .rdprofiler a:visited {
-    color: var(--text-color: #333);
+    color: var(--text-color);
     text-decoration: none;
 }
 .rdprofiler b,
