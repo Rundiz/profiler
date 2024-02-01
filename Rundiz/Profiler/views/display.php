@@ -29,10 +29,10 @@ rdProfilerLoadJs();
 <?php 
 ob_start('rdProfilerMinifyOutput', 1);
 ?>
-<div class="rdprofiler">
+<div class="rdprofiler" data-nosnippet>
     <div class="rdprofiler-container">
         <ul class="rdprofiler-log-sections">
-            <li><strong><a href="http://rundiz.com" target="vendor" class="rdprofiler-highlight">Rundiz</a></strong>\Profiler</li>
+            <li><strong><a class="rdprofiler-highlight" href="http://rundiz.com" target="vendor" rel="nofollow">Rundiz</a></strong>\<a href="https://github.com/Rundiz/profiler" target="github" rel="nofollow">Profiler</a></li>
             <?php 
             include 'display-PHP.php';
             if (is_array($this->log_sections)) {
