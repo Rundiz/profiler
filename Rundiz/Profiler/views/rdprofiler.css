@@ -40,8 +40,13 @@ body {
     word-break: break-all;
     word-wrap: break-word;
 }
-.rdprofiler a {
-    color: inherit;
+.rdprofiler a,
+.rdprofiler a:active,
+.rdprofiler a:focus,
+.rdprofiler a:hover, 
+.rdprofiler a:target,
+.rdprofiler a:visited {
+    color: var(--text-color: #333);
     text-decoration: none;
 }
 .rdprofiler b,
