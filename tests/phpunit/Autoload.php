@@ -1,9 +1,6 @@
 <?php
 /** 
- * 
- * @author Vee W.
  * @license http://opensource.org/licenses/MIT
- * 
  */
 
 

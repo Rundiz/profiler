@@ -10,8 +10,6 @@
  * A callback class for display DB profiler.
  * 
  * You can copy and use this source code or change from PDO to how you query your database.
- * 
- * @author Vee W.
  */
 class rdpDisplayProfilerDb
 {

@@ -15,7 +15,6 @@ namespace Rundiz\Profiler;
  * This class also display the profiling result and dump the data for check or tests.
  * 
  * @package Rundiz\Profiler
- * @author Vee W.
  */
 class Profiler extends \Rundiz\Profiler\ProfilerBase
 {

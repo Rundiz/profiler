@@ -14,7 +14,7 @@ namespace Rundiz\Profiler;
  * For access common properties between console and profiler class.
  * 
  * @package Rundiz\Profiler
- * @author Vee W.
+ * @version 1.1.10
  */
 abstract class ProfilerBase
 {
