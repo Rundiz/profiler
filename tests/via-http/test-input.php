@@ -101,16 +101,15 @@ if (isset($_SERVER['REQUEST_URI'])) {
                     // just prevent throwing errors.
                 });
 
-                // use `JQuery.ajax()`.
-                jQuery.ajax({
-                    'url': '<?php echo $ajaxURL; ?>?doing=ajax&ajax-using=jquery&array[]=item1&array[]=item2',
-                    'method': 'POST',
-                    'data': postBody,
-                })
-                .then((rawResponse) => {
-                    console.log('jQuery.ajax() completed.');
+                // use JS `XMLHttpRequest()`.
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    console.log('JS XMLHttpRequest() completed.');
                     // continue your AJAX tasks.
-                });
+                };
+                xhr.open('POST', '<?php echo $ajaxURL; ?>?doing=ajax&ajax-using=XMLHttpRequest&array[]=item1&array[]=item2', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.send(postBody);
             });
         </script>
         <?php
@@ -135,6 +134,6 @@ if (isset($_SERVER['REQUEST_URI'])) {
 
         // display profiler window.
         echo $profiler->display();
-        ?>
+        ?> 
     </body>
 </html>

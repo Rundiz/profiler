@@ -16,12 +16,7 @@ if (class_exists('\\Rundiz\\Number\\Number')) {
     //<![CDATA[
 <?php rdProfilerLoadCss(); ?> 
 
-<?php 
-echo 'if (typeof jQuery == \'undefined\') {'."\n";
-rdProfilerLoadJs('jquery');
-echo '}'."\n\n";
-rdProfilerLoadJs(); 
-?> 
+<?php rdProfilerLoadJs(); ?> 
     //]]>
 </script>
 <!-- end javascript for Rundiz/Profiler -->

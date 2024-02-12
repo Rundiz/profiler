@@ -54,6 +54,9 @@ require dirname(__DIR__).'/common-test-functions.php';
                 grid-column-start: 1;
                 grid-row-start: 2;
             }
+            #toggle-height-element.active {
+                height: 900px;
+            }
         </style>
     </head>
     <body>
@@ -93,9 +96,12 @@ require dirname(__DIR__).'/common-test-functions.php';
         ?>
         <script>
             function rdprofilerDemoFooterToggleHeight() {
-                let $ = jQuery.noConflict();
-                var active = $('#toggle-height-element').toggleClass('active').hasClass('active');
-                $('#toggle-height-element').css('height', !active ? 'auto' : '900px');
+                const toggleHeightE = document.getElementById('toggle-height-element');
+                if (toggleHeightE.classList.contains('active')) {
+                    toggleHeightE.classList.remove('active');
+                } else {
+                    toggleHeightE.classList.add('active');
+                }
             }// rdprofilerDemoFooterToggleHeight
         </script>
     </body>

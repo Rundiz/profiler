@@ -246,7 +246,8 @@ if (isset($_REQUEST['doing']) && 'ajax' === $_REQUEST['doing']) {
         // in case that display profiler db is function, you can use the line below.
         // echo $profiler->display($dbh, 'displayProfilerDbFunction');
         unset($dbh, $rdpDisplayProfilerDb);
-        ?>
+        ?> 
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     </body>
 </html>
 /**/

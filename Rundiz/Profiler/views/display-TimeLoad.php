@@ -74,7 +74,7 @@ echo "\n";
                             echo rdProfilerIndent(7).'<div class="rdprofiler-log-matchkey-name">'."\n";
                             echo rdProfilerIndent(8).'Match Key is: ';
                             if (isset($section_to_id) && isset($section_matchKey_id)) {
-                                echo '<a href="#'.$section_matchKey_id.'" onclick="return RundizProfiler.scrollTo(\'#Section'.$section_to_id.' ul\', \'.'.$section_matchKey_id.'\', jQuery(this));">';
+                                echo '<a href="#'.$section_matchKey_id.'" onclick="return RundizProfiler.scrollTo(\'.'.$section_matchKey_id.'\', this);">';
                             }
                             echo htmlspecialchars((string) $data_values['matchKey'], ENT_QUOTES);// the match key name.
                             if (isset($section_to_id) && isset($section_matchKey_id)) {

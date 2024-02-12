@@ -43,14 +43,14 @@ class RundizProfiler {
      * Listen on AJAX response that contain rundiz profiler result in it and display in the profiler bar.
      * 
      * @since 1.1.6
-     * @link https://stackoverflow.com/a/27363569/128761 Original souce code that support `XMLHttpRequest`, `jQuery.ajax()`.
+     * @link https://stackoverflow.com/a/27363569/128761 Original souce code that support `XMLHttpRequest`.
      * @link https://blog.logrocket.com/intercepting-javascript-fetch-api-requests-responses/ Original source code that support `fetch()`.
      * @returns {undefined}
      */
     #listenAJAXResponseForProfiler() {
         const thisClass = this;
 
-        // listen AJAX requested via `XMLHttpRequest`, `jQuery.ajax()`.
+        // listen AJAX requested via `XMLHttpRequest`.
         var origOpen = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function() {
             const requestURL = arguments[1];
@@ -212,37 +212,40 @@ class RundizProfiler {
     /**
      * Scroll to each class in `matchKey` argument.
      * 
-     * To use, use in a link with return. Example: `<a href="#" onclick="return RundizProfiler.scrollTo('#section', '.matchKey', jQuery(this));">link</a>`
+     * To use, use in a link with return. Example: `<a href="#" onclick="return RundizProfiler.scrollTo('.matchKey', this);">link</a>`
      * 
-     * @param {string} section The section id.
      * @param {string} matchKey The matchKey class.
-     * @param {object} thisobj jQuery(this) object.
+     * @param {object} thisobj The JavaScript `this` object.
      * @returns {Boolean} Always return false to prevent any click link action.
      */
-    static scrollTo(section, matchKey, thisobj) {
-        let $ = jQuery.noConflict();
-        const Container = $(section);
-        const CurrentElement = thisobj.parents('li');
-        let ScrollTo;
+    static scrollTo(matchKey, thisobj) {
+        const thisClass = new this();
+        const rdProfiler = document.querySelector('.rdprofiler');
+        const currentListItem = thisobj.closest('li');
 
-        if (CurrentElement.prevAll(matchKey).length) {
-            // if previous matchKey exists, use that one.
-            ScrollTo = CurrentElement.prevAll(matchKey).offset().top;
-            //console.log('[rundiz-profiler]: use previous matchKey.');
-            //console.log('[rundiz-profiler]: ' + (ScrollTo - Container.offset().top + Container.scrollTop()));
-        } else if (CurrentElement.nextAll(matchKey).length) {
-            // if next matchKey exists, use that one.
-            ScrollTo = CurrentElement.nextAll(matchKey).offset().top;
-            //console.log('[rundiz-profiler]: use next matchKey.');
-            //console.log('[rundiz-profiler]: ' + (ScrollTo - Container.offset().top + Container.scrollTop()));
+        const allMatches = [...rdProfiler.querySelectorAll(matchKey)];
+        let newMatches = [];
+        let foundCurrent = false;
+
+        for (const eachLi of allMatches) {
+            if (true === foundCurrent) {
+                newMatches.push(eachLi);
+            }
+            if (eachLi === currentListItem) {
+                foundCurrent = true;
+            }
+        }// endfor;
+
+        let targetListItem;
+        if (typeof(newMatches[0]) !== 'undefined') {
+            targetListItem = newMatches[0];
+        } else {
+            targetListItem = allMatches[0];
         }
 
-        if (typeof(ScrollTo) !== 'undefined') {
-            Container.scroll();
-            Container.animate({
-                scrollTop: (ScrollTo - Container.offset().top + Container.scrollTop())
-            }, 'fast');
-        }
+        targetListItem?.scrollIntoView({
+            'behavior': 'smooth',
+        });
 
         return false;
     }// scrollTo
