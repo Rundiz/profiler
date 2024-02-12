@@ -1,7 +1,7 @@
 
 
 /* override body padding-bottom to have more space for profiler height */
-body {
+body.body-contain-rdprofiler {
     padding-bottom: 32px !important;
 }
 
