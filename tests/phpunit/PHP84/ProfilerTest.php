@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rundiz\Profiler\Tests\PHP71;
+namespace Rundiz\Profiler\Tests\PHP84;
 
 
 class ProfilerTest extends \PHPUnit\Framework\TestCase

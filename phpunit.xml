@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        backupGlobals="false" 
-        backupStaticAttributes="false" 
-        bootstrap="./tests/phpunit/phpunit.php" 
-        colors="true" 
-        convertErrorsToExceptions="true" 
-        convertNoticesToExceptions="true" 
-        convertWarningsToExceptions="true" 
-        processIsolation="false" 
-        stopOnFailure="false" 
-        verbose="true" 
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    backupGlobals="false" 
+    backupStaticProperties="false" 
+    bootstrap="./tests/phpunit/phpunit.php" 
+    cacheDirectory=".phpunit.cache" 
+    colors="true" 
+    processIsolation="false" 
+    stopOnFailure="false" 
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
+>
   <testsuites>
     <testsuite name="tests/phpunit">
-      <directory suffix=".php" phpVersion="7.1.0" phpVersionOperator="&lt;">./tests/phpunit/PHPB71</directory>
-      <directory suffix=".php" phpVersion="7.1.0" phpVersionOperator=">=">./tests/phpunit/PHP71</directory>
+      <directory suffix="Test.php">./tests/phpunit/PHP84</directory>
     </testsuite>
   </testsuites>
 </phpunit>
