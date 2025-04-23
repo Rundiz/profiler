@@ -26,7 +26,7 @@ ob_start('rdProfilerMinifyOutput', 1);
 ?>
 <div class="rdprofiler" data-nosnippet>
     <div class="rdprofiler-container">
-        <ul class="rdprofiler-log-sections">
+        <ul class="rdprofiler-sections">
             <li><strong><a class="rdprofiler-highlight" href="http://rundiz.com" target="vendor" rel="nofollow">Rundiz</a></strong>\<a href="https://github.com/Rundiz/profiler" target="github" rel="nofollow">Profiler</a></li>
             <?php 
             include 'display-PHP.php';
@@ -68,7 +68,7 @@ ob_start('rdProfilerMinifyOutput', 1);
                 unset($data_array, $section, $summary);
             }
             ?> 
-        </ul><!--.rdprofiler-log-sections-->
+        </ul><!--.rdprofiler-sections-->
     </div><!--.rdprofiler-container-->
 </div><!--.rdprofiler-->
 <?php

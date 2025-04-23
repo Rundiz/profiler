@@ -159,24 +159,24 @@ body.body-contain-rdprofiler {
 }
 
 
-ul.rdprofiler-log-sections,
-.rdprofiler-log-sections {
+ul.rdprofiler-sections,
+.rdprofiler-sections {
     display: table;
     line-height: var(--rdprofiler-box-height);
     vertical-align: middle;
 }
-.rdprofiler-log-sections > li,
-.rdprofiler-log-sections > li:first-child, 
-.rdprofiler-log-sections > li:last-child {
+.rdprofiler-sections > li,
+.rdprofiler-sections > li:first-child, 
+.rdprofiler-sections > li:last-child {
     border-right: 1px solid var(--border-color);
     display: table-cell;
     padding: 0 10px;
 }
-.rdprofiler-log-sections li.rdprofiler-see-details > a {
+.rdprofiler-sections li.rdprofiler-see-details > a {
     cursor: pointer;
     display: block;
 }
-.rdprofiler-log-sections ul {
+.rdprofiler-sections ul {
     background-color: var(--background-color-active);
     border-bottom: 1px solid var(--border-color);
     bottom: var(--rdprofiler-box-height);
@@ -189,88 +189,88 @@ ul.rdprofiler-log-sections,
     right: 10px;
     z-index: var(--z-index);
 }
-.rdprofiler-log-sections li.rdprofiler-see-details.rdprofiler-log-section-active {
+.rdprofiler-sections li.rdprofiler-see-details.rdprofiler-log-section-active {
     background-color: var(--background-color-active);
 }
-.rdprofiler-log-sections li.rdprofiler-see-details.rdprofiler-log-section-active ul {
+.rdprofiler-sections li.rdprofiler-see-details.rdprofiler-log-section-active ul {
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
     border-top: 1px solid var(--border-color);
     display: block;
 }
-.rdprofiler-log-sections ul li {
+.rdprofiler-sections ul li {
     border-bottom: 1px dotted var(--border-color);
     display: table;
     table-layout: fixed;
     width: 100%;
 }
-.rdprofiler-log-sections ul li:hover {
+.rdprofiler-sections ul li:hover {
     background-color: rgba(255,255,255,0.2);
 }
-.rdprofiler-log-sections ul li.rdprofiler-new-xhr-session {
+.rdprofiler-sections ul li.rdprofiler-new-xhr-session {
     border-top: 2px dotted var(--border-color);
     font-weight: bold;
 }
-.rdprofiler-log-sections ul li.rdprofiler-log-summary-row {
+.rdprofiler-sections ul li.rdprofiler-log-summary-row {
     font-weight: bold;
 }
-.rdprofiler-log-sections ul li > div,
-.rdprofiler-log-sections ul li > pre {
+.rdprofiler-sections ul li > div,
+.rdprofiler-sections ul li > pre {
     display: table-cell;
     padding: 5px 10px;
 }
 
-.rdprofiler-log-sections ul li .rdprofiler-log-data {
+.rdprofiler-sections ul li .rdprofiler-log-data {
     line-height: inherit;
     white-space: pre-wrap;
 }
-.rdprofiler-log-sections ul li .rdprofiler-log-newrow {
+.rdprofiler-sections ul li .rdprofiler-log-newrow {
     display: table-row;
 }
-.rdprofiler-log-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-explain,
-.rdprofiler-log-sections ul li .rdprofiler-log-newrow .rdprofiler-log-matchkey-name,
-.rdprofiler-log-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-trace {
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-explain,
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-matchkey-name,
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-trace {
     color: #777;
     display: table-cell;
     padding: 5px 10px;
     width: 100%;
 }
-.rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+.rdprofiler-sections ul li .rdprofiler-log-fileline {
     width: 90px;
 }
 @media (min-width: 500px) {
-    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+    .rdprofiler-sections ul li .rdprofiler-log-fileline {
         width: 130px;
     }
 }
 @media (min-width: 700px) {
-    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+    .rdprofiler-sections ul li .rdprofiler-log-fileline {
         width: 170px;
     }
 }
 @media (min-width: 900px) {
-    .rdprofiler-log-sections ul li .rdprofiler-log-fileline {
+    .rdprofiler-sections ul li .rdprofiler-log-fileline {
         width: 200px;
     }
 }
-.rdprofiler-log-sections ul li .rdprofiler-log-db-timetake,
-.rdprofiler-log-sections ul li .rdprofiler-log-filesize,
-.rdprofiler-log-sections ul li .rdprofiler-log-file-largestsize-value,
-.rdprofiler-log-sections ul li .rdprofiler-log-memory,
-.rdprofiler-log-sections ul li .rdprofiler-log-selfmemory,
-.rdprofiler-log-sections ul li .rdprofiler-log-selftime,
-.rdprofiler-log-sections ul li .rdprofiler-log-time,
-.rdprofiler-log-sections ul li .rdprofiler-log-file-totalsize-value {
+.rdprofiler-sections ul li .rdprofiler-log-db-timetake,
+.rdprofiler-sections ul li .rdprofiler-log-filesize,
+.rdprofiler-sections ul li .rdprofiler-log-file-largestsize-value,
+.rdprofiler-sections ul li .rdprofiler-log-memory,
+.rdprofiler-sections ul li .rdprofiler-log-selfmemory,
+.rdprofiler-sections ul li .rdprofiler-log-selftime,
+.rdprofiler-sections ul li .rdprofiler-log-time,
+.rdprofiler-sections ul li .rdprofiler-log-file-totalsize-value {
     width: 60px;
 }
-.rdprofiler-log-sections ul li .rdprofiler-log-phpextversion {
+.rdprofiler-sections ul li .rdprofiler-log-phpextversion {
     width: 40%;
 }
 
-.rdprofiler-log-sections ul li .rdprofiler-log-inputs-value {
+.rdprofiler-sections ul li .rdprofiler-log-inputs-value {
     width: 50%;
 }
 
-.rdprofiler-log-sections ul li .rdprofiler-log-logtype {
+.rdprofiler-sections ul li .rdprofiler-log-logtype {
     width: 50px;
 }
