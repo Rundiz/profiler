@@ -53,7 +53,7 @@ class rdpDisplayProfilerDb
             $sth = $dbh->prepare('EXPLAIN '.$data_values['data']);
             $sth->execute();
             if ($sth) {
-                echo '<div class="rdprofiler-log-newrow">'."\n";
+                echo '<div class="rdprofiler-data-display-row">'."\n";
                 echo '<div class="rdprofiler-log-db-explain">'."\n";
                 if (isset($exp_data) && is_array($exp_data)) {
                     foreach ($exp_data as $key => $sqldata) {
@@ -84,7 +84,7 @@ class rdpDisplayProfilerDb
             }
             unset($sth);
         } catch (\Exception $e) {
-            echo '<div class="rdprofiler-log-newrow">'."\n";
+            echo '<div class="rdprofiler-data-display-row">'."\n";
             echo '<div class="rdprofiler-log-db-explain">'."\n";
             echo '</div>'."\n";
             echo '</div>'."\n";
@@ -92,7 +92,7 @@ class rdpDisplayProfilerDb
         unset($exp_data);
 
         if (is_array($data_values) && array_key_exists('call_trace', $data_values)) {
-            echo '<div class="rdprofiler-log-newrow">'."\n";
+            echo '<div class="rdprofiler-data-display-row">'."\n";
             echo '<div class="rdprofiler-log-db-trace">'."\n";
             echo '<strong>Call trace:</strong><br>'."\n";
             foreach ($data_values['call_trace'] as $trace_item) {
