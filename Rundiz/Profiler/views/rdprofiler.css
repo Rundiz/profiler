@@ -138,33 +138,66 @@ body.body-contain-rdprofiler {
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-notice {
     background-color: var(--background-color-logs-notice);
 }
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-notice.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-notice) h s calc(l - 10));
+}
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-warning,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-warning {
     background-color: var(--background-color-logs-warning);
 }
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-warning.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-warning) h s calc(l - 10));
+}
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-error,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-error {
     background-color: var(--background-color-logs-error);
 }
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-error.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-error) h s calc(l - 10));
+}
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-critical,/* For section tabs */
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-alert,/* For section tabs */
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency,/* For section tabs */
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-critical > a > *,/* For section tabs */
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-alert > a > *,/* For section tabs */
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency > a > *,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-critical,
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-alert,
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-emergency {
     color: var(--text-color-dark-background);
 }
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-critical,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-critical {
     background-color: var(--background-color-logs-critical);
 }
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-critical.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-critical) h s calc(l - 10));
+}
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-alert,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-alert {
     background-color: var(--background-color-logs-alert);
 }
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-alert.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-alert) h s calc(l - 10));
+}
+
 .rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency,/* For section tabs */
 .rdprofiler-section-logs-details-logtype.rdprofiler-logtype-emergency {
     background-color: var(--background-color-logs-emergency);
+}
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency.rdprofiler-section-active {
+    /* For section tabs */
+    background-color: hsl(from var(--background-color-logs-emergency) h s calc(l - 10));
 }
 
 
@@ -213,10 +246,10 @@ ul.rdprofiler-sections,
     right: 10px;
     z-index: var(--z-index);
 }
-.rdprofiler-sections li.rdprofiler-section-tab.rdprofiler-section-active {
+.rdprofiler-sections li.rdprofiler-section-active {
     background-color: var(--background-color-active);
 }
-.rdprofiler-sections li.rdprofiler-section-tab.rdprofiler-section-active ul {
+.rdprofiler-sections li.rdprofiler-section-active ul {
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
     border-top: 1px solid var(--border-color);
@@ -236,9 +269,17 @@ ul.rdprofiler-sections,
     display: table-cell;
     padding: 5px 10px;
 }
+.rdprofiler-sections ul li .rdprofiler-log-newrow {
+    /* @deprecated keep for supported old version usage */
+    outline: rgba(255, 0, 0, 0.1) dashed 2px;
+}
+.rdprofiler-sections ul li .rdprofiler-log-newrow,/* @deprecated keep for supported old version usage */
 .rdprofiler-sections ul li .rdprofiler-data-display-row {
     display: table-row;
 }
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-explain,/* @deprecated keep for supported old version usage */
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-matchkey-name,/* @deprecated keep for supported old version usage */
+.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-trace,/* @deprecated keep for supported old version usage */
 .rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-db-explain,
 .rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-matchkey-name,
 .rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-db-trace {
