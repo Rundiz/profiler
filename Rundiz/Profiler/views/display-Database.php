@@ -7,11 +7,11 @@ $summary = count($data_array);
 
 echo "\n";
 ?>
-            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-section-tab">
+                <a class="rdprofiler-section-tab-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
                     <li class="rdprofiler-section-details-heading-row">
-                        <div class="rdprofiler-log-data">SQL statement</div>
+                        <div class="rdprofiler-data-message">SQL statement</div>
                         <div class="rdprofiler-log-db-timetake">Self Time</div>
                         <div class="rdprofiler-log-memory">Self Memory</div>
                     </li><!--.rdprofiler-section-details-heading-row-->
@@ -24,7 +24,7 @@ echo "\n";
                     <li>
                         <?php
                         echo "\n";
-                        echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
+                        echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
 
                         if ($section == 'Database') {
                             call_user_func($display_db_function, $this, $dbh, $data_values);
@@ -38,7 +38,7 @@ echo "\n";
                         unset($data_key, $data_values);
                     } else {
                     ?> 
-                    <li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>
+                    <li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>
                     <?php } ?> 
                 </ul>
             </li><!--#SectionXXXX-->

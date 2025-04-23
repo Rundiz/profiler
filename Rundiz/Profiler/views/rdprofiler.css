@@ -10,9 +10,18 @@ body.body-contain-rdprofiler {
 .rdprofiler {
     --background-color-active: #ddd;
     --background-color-based: #eee;
+    --background-color-logs-debug: #CDE5CC;
+    --background-color-logs-info: #D7E3EB;
+    --background-color-logs-notice: #EAEBC5;
+    --background-color-logs-warning: #EEDAA4;
+    --background-color-logs-error: #E7A763;
+    --background-color-logs-critical: #D93727;
+    --background-color-logs-alert: #A80000;
+    --background-color-logs-emergency: #440101;
     --border-color: #bbb;
     --rdprofiler-box-height: 30px;
     --text-color: #333;
+    --text-color-dark-background: #eee;
     --z-index: 10;
 }
 
@@ -47,7 +56,7 @@ body.body-contain-rdprofiler {
 .rdprofiler a:hover, 
 .rdprofiler a:target,
 .rdprofiler a:visited {
-    color: var(--text-color);
+    color: inherit;
     text-decoration: none;
 }
 .rdprofiler b,
@@ -118,47 +127,59 @@ body.body-contain-rdprofiler {
 }
 
 
-.rdprofiler-log-logtype.rdprofiler-logtype-debug {
-    background-color: #CDE5CC;
+/* Section Logs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-debug {
+    background-color: var(--background-color-logs-debug);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-info {
-    background-color: #D7E3EB;
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-info {
+    background-color: var(--background-color-logs-info);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-notice {
-    background-color: #EAEBC5;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-notice,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-notice {
+    background-color: var(--background-color-logs-notice);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-warning {
-    background-color: #EEDAA4;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-warning,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-warning {
+    background-color: var(--background-color-logs-warning);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-error {
-    background-color: #E7A763;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-error,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-error {
+    background-color: var(--background-color-logs-error);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-critical,
-.rdprofiler-log-logtype.rdprofiler-logtype-alert,
-.rdprofiler-log-logtype.rdprofiler-logtype-emergency {
-    color: #eee;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-critical,/* For section tabs */
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-alert,/* For section tabs */
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-critical,
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-alert,
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-emergency {
+    color: var(--text-color-dark-background);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-critical {
-    background-color: #D93727;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-critical,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-critical {
+    background-color: var(--background-color-logs-critical);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-alert {
-    background-color: #A80000;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-alert,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-alert {
+    background-color: var(--background-color-logs-alert);
 }
-.rdprofiler-log-logtype.rdprofiler-logtype-emergency {
-    background-color: #440101;
+.rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency,/* For section tabs */
+.rdprofiler-section-logs-details-logtype.rdprofiler-logtype-emergency {
+    background-color: var(--background-color-logs-emergency);
 }
 
 
-.rdprofiler-log-logtypes td,
-.rdprofiler-log-logtypes td.rdprofiler-log-logtype,
-.rdprofiler-log-logtypes th {
+.rdprofiler-section-logs-details-logtypes td,
+.rdprofiler-section-logs-details-logtypes td.rdprofiler-section-logs-details-logtype,
+.rdprofiler-section-logs-details-logtypes th {
     font-weight: inherit;
     line-height: inherit;
     padding: 3px 5px;
     width: 12.5%;
 }
+/* End section Logs */
 
 
+/* Sections tabs */
 ul.rdprofiler-sections,
 .rdprofiler-sections {
     display: table;
@@ -172,10 +193,13 @@ ul.rdprofiler-sections,
     display: table-cell;
     padding: 0 10px;
 }
-.rdprofiler-sections li.rdprofiler-see-details > a {
+.rdprofiler-sections li.rdprofiler-section-tab > a {
     cursor: pointer;
     display: block;
 }
+/* End sections tabs */
+
+
 .rdprofiler-sections ul {
     background-color: var(--background-color-active);
     border-bottom: 1px solid var(--border-color);
@@ -189,59 +213,44 @@ ul.rdprofiler-sections,
     right: 10px;
     z-index: var(--z-index);
 }
-.rdprofiler-sections li.rdprofiler-see-details.rdprofiler-section-active {
+.rdprofiler-sections li.rdprofiler-section-tab.rdprofiler-section-active {
     background-color: var(--background-color-active);
 }
-.rdprofiler-sections li.rdprofiler-see-details.rdprofiler-section-active ul {
+.rdprofiler-sections li.rdprofiler-section-tab.rdprofiler-section-active ul {
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
     border-top: 1px solid var(--border-color);
     display: block;
 }
-.rdprofiler-sections li.rdprofiler-section-has-atleast-notice a {
-    color: inherit;
-}
-.rdprofiler-sections li.rdprofiler-section-logs-atleast-emergency {
-    background-color: #440101;
-    color: #eee;
-}
+
+
+/* Re-format data details display as table */
 .rdprofiler-sections ul li {
     border-bottom: 1px dotted var(--border-color);
     display: table;
     table-layout: fixed;
     width: 100%;
 }
-.rdprofiler-sections ul li:hover {
-    background-color: rgba(255,255,255,0.2);
-}
-.rdprofiler-sections ul li.rdprofiler-new-xhr-session {
-    border-top: 2px dotted var(--border-color);
-    font-weight: bold;
-}
-.rdprofiler-sections ul li.rdprofiler-section-details-heading-row {
-    font-weight: bold;
-}
 .rdprofiler-sections ul li > div,
 .rdprofiler-sections ul li > pre {
     display: table-cell;
     padding: 5px 10px;
 }
-
-.rdprofiler-sections ul li .rdprofiler-log-data {
-    line-height: inherit;
-    white-space: pre-wrap;
-}
-.rdprofiler-sections ul li .rdprofiler-log-newrow {
+.rdprofiler-sections ul li .rdprofiler-data-display-row {
     display: table-row;
 }
-.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-explain,
-.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-matchkey-name,
-.rdprofiler-sections ul li .rdprofiler-log-newrow .rdprofiler-log-db-trace {
+.rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-db-explain,
+.rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-matchkey-name,
+.rdprofiler-sections ul li .rdprofiler-data-display-row .rdprofiler-log-db-trace {
     color: #777;
     display: table-cell;
     padding: 5px 10px;
     width: 100%;
 }
+/* End re-format data details display as table */
+
+
+/* Data details of table's column width */
 .rdprofiler-sections ul li .rdprofiler-log-fileline {
     width: 90px;
 }
@@ -278,6 +287,24 @@ ul.rdprofiler-sections,
     width: 50%;
 }
 
-.rdprofiler-sections ul li .rdprofiler-log-logtype {
+.rdprofiler-sections ul li .rdprofiler-section-logs-details-logtype {
     width: 50px;
+}
+/* End data details of table's column width */
+
+
+.rdprofiler-sections ul li:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+.rdprofiler-sections ul li.rdprofiler-data-new-xhr-session {
+    border-top: 2px dotted var(--border-color);
+    font-weight: bold;
+}
+.rdprofiler-sections ul li.rdprofiler-section-details-heading-row {
+    font-weight: bold;
+}
+
+.rdprofiler-sections ul li .rdprofiler-data-message {
+    line-height: inherit;
+    white-space: pre-wrap;
 }

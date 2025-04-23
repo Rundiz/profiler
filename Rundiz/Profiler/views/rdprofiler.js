@@ -120,16 +120,16 @@ class RundizProfiler {
 
             const htmlSectionUl = document.querySelector('.rdprofiler #Section' + section + ' > ul');
             // append section's items to list panel.
-            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-data-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
             for (const item of logSections[section]) {
                 let resultHTML = '<li>'
-                    + '<pre class="rdprofiler-log-data">(XHR) ' + item.data + '</pre>'
+                    + '<pre class="rdprofiler-data-message">(XHR) ' + item.data + '</pre>'
                     + '<pre class="rdprofiler-log-inputs-value">' + item.inputvalue + '</pre>'
                     + '</li>';
                 htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
             }// endfor; loop items of this section.
             // modify total items.
-            const profileTabHTML = document.querySelector('.rdprofiler #Section' + section + ' > .rdprofiler-see-details-link');
+            const profileTabHTML = document.querySelector('.rdprofiler #Section' + section + ' > .rdprofiler-section-tab-link');
             const currentTotalRegex = /(?<total>[\d]+)/g;
             let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
             currentTotal = currentTotal.groups.total;
@@ -140,14 +140,14 @@ class RundizProfiler {
         if (logSections?.Database && logSections.Database.length > 0 && document.querySelector('.rdprofiler #SectionDatabase')) {
             const htmlSectionUl = document.querySelector('.rdprofiler #SectionDatabase > ul');
             // append section's items to list panel.
-            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
+            htmlSectionUl.insertAdjacentHTML('beforeend', '<li class="rdprofiler-data-new-xhr-session"><div>New XHR session (' + requestURL + ')</div></li>');
             for (const item of logSections.Database) {
                 let resultHTML = '<li>'
-                    + '<pre class="rdprofiler-log-data">' + item.data + '</pre>'
+                    + '<pre class="rdprofiler-data-message">' + item.data + '</pre>'
                     + '<div class="rdprofiler-log-db-timetake">' + ((parseFloat(item.time_end) - parseFloat(item.time_start)) * 1000).toFixed(3) + ' ms</div>'
                     + '<div class="rdprofiler-log-memory">' + this.#formatBytes((parseFloat(item.memory_end) - parseFloat(item.memory_start))) + '</div>'
-                    + '<div class="rdprofiler-log-newrow"><div class="rdprofiler-log-db-explain"></div></div>'
-                    + '<div class="rdprofiler-log-newrow"><div class="rdprofiler-log-db-trace"><strong>Call trace (XHR):</strong><br>';
+                    + '<div class="rdprofiler-data-display-row"><div class="rdprofiler-log-db-explain"></div></div>'
+                    + '<div class="rdprofiler-data-display-row"><div class="rdprofiler-log-db-trace"><strong>Call trace (XHR):</strong><br>';
                 if (item?.call_trace) {
                     for (const traceItem of item.call_trace) {
                         resultHTML += traceItem.file + ', line' + traceItem.line + '<br>';
@@ -158,7 +158,7 @@ class RundizProfiler {
                 htmlSectionUl.insertAdjacentHTML('beforeend', resultHTML);
             }// endfor; loop items of this section.
             // modify total items.
-            const profileTabHTML = document.querySelector('.rdprofiler #SectionDatabase > .rdprofiler-see-details-link');
+            const profileTabHTML = document.querySelector('.rdprofiler #SectionDatabase > .rdprofiler-section-tab-link');
             const currentTotalRegex = /(?<total>[\d]+)/g;
             let currentTotal = currentTotalRegex.exec(profileTabHTML.innerHTML);
             currentTotal = currentTotal.groups.total;
@@ -176,14 +176,14 @@ class RundizProfiler {
     listenClickToggleDetailsPanel() {
         document.addEventListener('click', (event) => {
             const thisTarget = event.target;
-            const detailsLink = thisTarget?.closest('.rdprofiler-see-details-link');
-            const sectionTab = detailsLink?.closest('.rdprofiler-see-details');
+            const detailsLink = thisTarget?.closest('.rdprofiler-section-tab-link');
+            const sectionTab = detailsLink?.closest('.rdprofiler-section-tab');
             if (detailsLink && sectionTab) {
                 if (sectionTab.classList.contains('rdprofiler-section-active')) {
                     sectionTab.classList.remove('rdprofiler-section-active');
                 } else {
                     // close (remove CSS class) all other tabs.
-                    document.querySelectorAll('.rdprofiler-see-details')?.forEach((item) => {
+                    document.querySelectorAll('.rdprofiler-section-tab')?.forEach((item) => {
                         item.classList.remove('rdprofiler-section-active');
                     });
                     sectionTab.classList.add('rdprofiler-section-active');

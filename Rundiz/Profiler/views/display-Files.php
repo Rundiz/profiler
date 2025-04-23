@@ -7,8 +7,8 @@ $summary = (count($data_array)-2);
 
 echo "\n";
 ?>
-            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-section-tab">
+                <a class="rdprofiler-section-tab-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
                     <li class="rdprofiler-section-details-heading-row">
                         <div class="rdprofiler-log-file-totalsize">File</div>
@@ -51,7 +51,7 @@ echo "\n";
                     <li>
                         <?php
                         echo "\n";
-                        echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
+                        echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
 
                         if (isset($data_values['size'])) {
                             echo rdProfilerIndent(6).'<div class="rdprofiler-log-filesize">';
@@ -71,7 +71,7 @@ echo "\n";
                         unset($data_key, $data_values);
                     } else {
                     ?> 
-                    <li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>
+                    <li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>
                     <?php } ?> 
                 </ul>
             </li><!--#SectionXXXX-->

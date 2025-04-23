@@ -17,21 +17,21 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
     ksort($all_ini, SORT_STRING);
 }
 ?> 
-            <li id="SectionPhpVersion" class="rdprofiler-see-details" title="PHP <?php echo phpversion(); ?>">
-                <a class="rdprofiler-see-details-link"><strong>PHP</strong> <?php echo phpversion(); ?></a>
+            <li id="SectionPhpVersion" class="rdprofiler-section-tab" title="PHP <?php echo phpversion(); ?>">
+                <a class="rdprofiler-section-tab-link"><strong>PHP</strong> <?php echo phpversion(); ?></a>
                 <ul>
                     <?php 
                     echo "\n";
                     if (isset($php_loaded_extensions) && is_array($php_loaded_extensions) && !empty($php_loaded_extensions)) {
                         foreach ($php_loaded_extensions as $phpext) {
                             echo rdProfilerIndent(5).'<li>'."\n";
-                            echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'.$phpext.'</pre>'."\n";
+                            echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'.$phpext.'</pre>'."\n";
                             echo rdProfilerIndent(6).'<div class="rdprofiler-log-phpextversion"><small>'.phpversion($phpext).'</small></div>'."\n";
                             echo rdProfilerIndent(5).'</li>'."\n";
                         }// endforeach;
                         unset($phpext);
                     } else {
-                        echo rdProfilerIndent(5).'<li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>';
+                        echo rdProfilerIndent(5).'<li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>';
                     }
                     ?> 
                     <li><div class="rdprofiler-section-details-heading-row"><strong>PHP.ini settings</strong></div></li>
@@ -40,7 +40,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                     if (isset($all_ini) && is_array($all_ini) && !empty($all_ini)) {
                         foreach ($all_ini as $ini_name => $items) {
                             echo rdProfilerIndent(5).'<li>'."\n";
-                            echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'.$ini_name.'</pre>'."\n";
+                            echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'.$ini_name.'</pre>'."\n";
                             echo rdProfilerIndent(6).'<div class="rdprofiler-log-phpextversion">'."\n";
                             if (is_array($items) && array_key_exists('global_value', $items)) {
                                 echo rdProfilerIndent(7).'<strong>Global value:</strong> '.gettype($items['global_value']).' \''.htmlspecialchars((string) $items['global_value'], ENT_QUOTES).'\'<br>'."\n";
@@ -53,7 +53,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                         }// endforeach;
                         unset($ini_name, $items);
                     } else {
-                        echo rdProfilerIndent(5).'<li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>'."\n";
+                        echo rdProfilerIndent(5).'<li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>'."\n";
                     }
                     ?> 
                 </ul>

@@ -7,11 +7,11 @@ $summary = $this->getReadableTime(($this->end_time-$this->start_time)*1000);
 
 echo "\n";
 ?>
-            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-section-tab">
+                <a class="rdprofiler-section-tab-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
                     <li class="rdprofiler-section-details-heading-row">
-                        <div class="rdprofiler-log-data">Data</div>
+                        <div class="rdprofiler-data-message">Data</div>
                         <div class="rdprofiler-log-fileline">File</div>
                         <div class="rdprofiler-log-selftime">Self Time</div>
                         <div class="rdprofiler-log-time">Time</div>
@@ -35,7 +35,7 @@ echo "\n";
                     <li<?php echo $section_details_id_class; ?>>
                         <?php
                         echo "\n";
-                        echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
+                        echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
 
                         if ((isset($data_values['file']) && $data_values['file'] != null) || (isset($data_values['line']) && $data_values['line'] != null)) {
                             // if contain file and line data then display it. this appears in these sections: Logs, Time Load, Memory Usage.
@@ -70,7 +70,7 @@ echo "\n";
 
                         if (isset($data_values['matchKey'])) {
                             // if contain matchKey, now display the matchKey name not their values.
-                            echo rdProfilerIndent(6).'<div class="rdprofiler-log-newrow">'."\n";
+                            echo rdProfilerIndent(6).'<div class="rdprofiler-data-display-row">'."\n";
                             echo rdProfilerIndent(7).'<div class="rdprofiler-log-matchkey-name">'."\n";
                             echo rdProfilerIndent(8).'Match Key is: ';
                             if (isset($section_to_id) && isset($section_matchKey_id)) {
@@ -96,7 +96,7 @@ echo "\n";
                         unset($data_key, $data_values);
                     } else {
                     ?> 
-                    <li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>
+                    <li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>
                     <?php } ?> 
                 </ul>
             </li><!--#SectionXXXX-->
