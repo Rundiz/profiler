@@ -10,12 +10,12 @@ echo "\n";
             <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
                 <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
-                    <li class="rdprofiler-log-summary-row">
+                    <li class="rdprofiler-section-details-heading-row">
                         <div class="rdprofiler-log-data">Data</div>
                         <div class="rdprofiler-log-fileline">File</div>
                         <div class="rdprofiler-log-selftime">Self Time</div>
                         <div class="rdprofiler-log-time">Time</div>
-                    </li><!--.rdprofiler-log-summary-row-->
+                    </li><!--.rdprofiler-section-details-heading-row-->
                     <?php
                     if (is_array($data_array) && !empty($data_array)) {
                         foreach ($data_array as $data_key => $data_values) {

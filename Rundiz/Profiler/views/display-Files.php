@@ -10,12 +10,12 @@ echo "\n";
             <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
                 <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
-                    <li class="rdprofiler-log-summary-row">
+                    <li class="rdprofiler-section-details-heading-row">
                         <div class="rdprofiler-log-file-totalsize">File</div>
                         <div class="rdprofiler-log-file-totalsize-value">Size</div>
-                    </li><!--.rdprofiler-log-summary-row-->
+                    </li><!--.rdprofiler-section-details-heading-row-->
                     <?php if (isset($data_array['total_size'])) { ?> 
-                    <li class="rdprofiler-log-summary-row">
+                    <li class="rdprofiler-section-details-heading-row">
                         <div class="rdprofiler-log-file-totalsize">Total size</div>
                         <div class="rdprofiler-log-file-totalsize-value"><?php
                             echo "\n";
@@ -26,10 +26,10 @@ echo "\n";
                             }
                             ?> 
                         </div>
-                    </li><!--.rdprofiler-log-summary-row-->
+                    </li><!--.rdprofiler-section-details-heading-row-->
                     <?php }// endif; total size ?> 
                     <?php if (isset($data_array['largest_size'])) { ?> 
-                    <li class="rdprofiler-log-summary-row">
+                    <li class="rdprofiler-section-details-heading-row">
                         <div class="rdprofiler-log-file-largestsize">Largest size</div>
                         <div class="rdprofiler-log-file-largestsize-value"><?php
                             echo "\n";
@@ -40,7 +40,7 @@ echo "\n";
                             }
                             ?> 
                         </div>
-                    </li><!--.rdprofiler-log-summary-row-->
+                    </li><!--.rdprofiler-section-details-heading-row-->
                     <?php }// endif; largest size ?> 
                     <?php 
                     if (is_array($data_array) && !empty($data_array)) {

@@ -179,14 +179,14 @@ class RundizProfiler {
             const detailsLink = thisTarget?.closest('.rdprofiler-see-details-link');
             const sectionTab = detailsLink?.closest('.rdprofiler-see-details');
             if (detailsLink && sectionTab) {
-                if (sectionTab.classList.contains('rdprofiler-log-section-active')) {
-                    sectionTab.classList.remove('rdprofiler-log-section-active');
+                if (sectionTab.classList.contains('rdprofiler-section-active')) {
+                    sectionTab.classList.remove('rdprofiler-section-active');
                 } else {
                     // close (remove CSS class) all other tabs.
                     document.querySelectorAll('.rdprofiler-see-details')?.forEach((item) => {
-                        item.classList.remove('rdprofiler-log-section-active');
+                        item.classList.remove('rdprofiler-section-active');
                     });
-                    sectionTab.classList.add('rdprofiler-log-section-active');
+                    sectionTab.classList.add('rdprofiler-section-active');
                 }
             }
         });

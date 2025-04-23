@@ -34,7 +34,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                         echo rdProfilerIndent(5).'<li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>';
                     }
                     ?> 
-                    <li><div class="rdprofiler-log-summary-row"><strong>PHP.ini settings</strong></div></li>
+                    <li><div class="rdprofiler-section-details-heading-row"><strong>PHP.ini settings</strong></div></li>
                     <?php
                     echo "\n";
                     if (isset($all_ini) && is_array($all_ini) && !empty($all_ini)) {
