@@ -168,6 +168,21 @@ class RundizProfiler {
 
 
     /**
+     * Detect deprecated features.
+     * 
+     * @since 1.1.11
+     * @returns {undefined}
+     */
+    detectDeprecated() {
+        let logNewRowClass = document.querySelectorAll('.rdprofiler-log-newrow');// @deprecated since 1.1.11
+        if (logNewRowClass.length > 0) {
+            console.warn('[rdprofiler] The HTML class `rdprofiler-log-newrow` has been deprecated since v.1.1.11. Please update to `rdprofiler-data-display-row`.');
+        }
+        logNewRowClass = null;
+    }// detectDeprecated
+
+
+    /**
      * Listen on click and toggle show/hide details panel.
      * 
      * @since 1.1.7
@@ -286,4 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rundizProfilerObj.setClassAndValue();
     // Listen on click and toggle details panel.
     rundizProfilerObj.listenClickToggleDetailsPanel();
+    // Detect deprecated features.
+    rundizProfilerObj.detectDeprecated();
 });
