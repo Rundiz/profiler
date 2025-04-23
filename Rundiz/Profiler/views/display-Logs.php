@@ -5,25 +5,39 @@
 
 $summary = count($data_array);
 
+$logTypes = ['notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
+$sectionClasses = 'rdprofiler-section-' . strtolower($section_to_id);
+foreach ($logTypes as $logType) {
+    ${'count' . ucfirst($logType)} = $this->countTotalLogType($logType);
+    if (${'count' . ucfirst($logType)} > 0) {
+        $logTypeAtLeast = 'rdprofiler-section-' . strtolower($section_to_id) . '-atleast-' . strtolower($logType);
+    }
+}// endforeach;
+unset($logType, $logTypes);
+if (isset($logTypeAtLeast)) {
+    $sectionClasses .= ' rdprofiler-section-has-atleast-notice ' . $logTypeAtLeast;
+}
+unset($logTypeAtLeast);
+
 echo "\n";
 ?>
-            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-see-details">
-                <a class="rdprofiler-see-details-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
+            <li id="Section<?php echo $section_to_id; ?>" class="rdprofiler-section-tab <?=$sectionClasses; ?>">
+                <a class="rdprofiler-section-tab-link" title="<?php echo $summary; ?>"><strong><?php echo $section; ?></strong> <?php echo $summary; ?></a>
                 <ul>
-                    <li class="rdprofiler-log-summary-row">
-                        <table class="rdprofiler-log-logtypes">
+                    <li class="rdprofiler-section-details-heading-row">
+                        <table class="rdprofiler-section-logs-details-logtypes">
                             <tr>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-debug">Debug (<?php echo $this->countTotalLogType('debug'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-info">Info (<?php echo $this->countTotalLogType('info'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-notice">Notice (<?php echo $this->countTotalLogType('notice'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-warning">Warning (<?php echo $this->countTotalLogType('warning'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-error">Error (<?php echo $this->countTotalLogType('error'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-critical">Critical (<?php echo $this->countTotalLogType('critical'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-alert">Alert (<?php echo $this->countTotalLogType('alert'); ?>)</td>
-                                <td class="rdprofiler-log-logtype rdprofiler-logtype-emergency">Emergency (<?php echo $this->countTotalLogType('emergency'); ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-debug">Debug (<?php echo $this->countTotalLogType('debug'); ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-info">Info (<?php echo $this->countTotalLogType('info'); ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-notice">Notice (<?php echo $countNotice; ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-warning">Warning (<?php echo $countWarning; ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-error">Error (<?php echo $countError; ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-critical">Critical (<?php echo $countCritical; ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-alert">Alert (<?php echo $countAlert; ?>)</td>
+                                <td class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-emergency">Emergency (<?php echo $countEmergency; ?>)</td>
                             </tr>
                         </table>
-                    </li><!--.rdprofiler-log-summary-row-->
+                    </li><!--.rdprofiler-section-details-heading-row-->
                     <?php 
                     if (is_array($data_array) && !empty($data_array)) {
                         foreach ($data_array as $data_key => $data_values) {
@@ -35,10 +49,10 @@ echo "\n";
                         echo "\n";
                         if (isset($data_values['logtype'])) {
                             // if log type exists. this is only for Logs section.
-                            echo rdProfilerIndent(6).'<div class="rdprofiler-log-logtype rdprofiler-logtype-'.strip_tags($data_values['logtype']).'">'.strip_tags(ucfirst($data_values['logtype'])).'</div>'."\n";
+                            echo rdProfilerIndent(6).'<div class="rdprofiler-section-logs-details-logtype rdprofiler-logtype-'.strip_tags($data_values['logtype']).'">'.strip_tags(ucfirst($data_values['logtype'])).'</div>'."\n";
                         }
 
-                        echo rdProfilerIndent(6).'<pre class="rdprofiler-log-data">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
+                        echo rdProfilerIndent(6).'<pre class="rdprofiler-data-message">'."\n".htmlspecialchars(trim(print_r($data_values['data'], true)), ENT_QUOTES)."\n".rdProfilerIndent(6).'</pre>'."\n";
 
                         if ((isset($data_values['file']) && $data_values['file'] != null) || (isset($data_values['line']) && $data_values['line'] != null)) {
                             // if contain file and line data then display it. this appears in these sections: Logs, Time Load, Memory Usage.
@@ -63,9 +77,11 @@ echo "\n";
                         unset($data_key, $data_values);
                     } else {
                     ?> 
-                    <li><pre class="rdprofiler-log-data">There is no data to display.</pre></li>
+                    <li><pre class="rdprofiler-data-message">There is no data to display.</pre></li>
                     <?php } ?> 
                 </ul>
             </li><!--#SectionXXXX-->
 <?php
+unset($sectionClasses);
+unset($countAlert, $countCritical, $countEmergency, $countError, $countNotice, $countWarning);
 unset($summary);
