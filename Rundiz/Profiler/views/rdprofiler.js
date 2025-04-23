@@ -21,8 +21,8 @@ class RundizProfiler {
      * 
      * @link https://stackoverflow.com/a/18650828/128761 Original source code.
      * @since 1.1.6
-     * @param {int} bytes
-     * @param {int} decimals
+     * @param {Integer} bytes
+     * @param {Integer} decimals
      * @returns {String}
      */
     #formatBytes(bytes, decimals = 2) {
@@ -95,7 +95,7 @@ class RundizProfiler {
      * 
      * @since 1.1.6
      * @param {string} requestURL 
-     * @param {object} JSONObj
+     * @param {Object} JSONObj
      * @returns {undefined}
      */
     #renderAJAXResponseForProfiler(requestURL, JSONObj) {
@@ -176,7 +176,7 @@ class RundizProfiler {
     detectDeprecated() {
         let logNewRowClass = document.querySelectorAll('.rdprofiler-log-newrow');// @deprecated since 1.1.11
         if (logNewRowClass.length > 0) {
-            console.warn('[rdprofiler] The HTML class `rdprofiler-log-newrow` has been deprecated since v.1.1.11. Please update to `rdprofiler-data-display-row`.');
+            console.warn('[rundizprofiler] The HTML class `rdprofiler-log-newrow` has been deprecated since v.1.1.11. Please update to `rdprofiler-data-display-row`.');
         }
         logNewRowClass = null;
     }// detectDeprecated
@@ -217,6 +217,7 @@ class RundizProfiler {
         // rundizProfilerCss variable is defined in Rundiz/Profiler/views/functions.php.
         if (typeof(rundizProfilerCss) !== 'undefined') {
             var sheet = document.createElement("style");
+            sheet.classList.add('rundizprofiler');
             sheet.setAttribute("type", "text/css");
             sheet.innerHTML = rundizProfilerCss;
             document.getElementsByTagName("head")[0].appendChild(sheet);
@@ -229,8 +230,8 @@ class RundizProfiler {
      * 
      * To use, use in a link with return. Example: `<a href="#" onclick="return RundizProfiler.scrollTo('.matchKey', this);">link</a>`
      * 
-     * @param {string} matchKey The matchKey class.
-     * @param {object} thisobj The JavaScript `this` object.
+     * @param {String} matchKey The matchKey class.
+     * @param {Object} thisobj The JavaScript `this` object.
      * @returns {Boolean} Always return false to prevent any click link action.
      */
     static scrollTo(matchKey, thisobj) {
@@ -290,7 +291,8 @@ class RundizProfiler {
  * @type Integer rundizProfilerElementHeight The rundiz profiler element height.
  */
 var rundizProfilerElementHeight;
-// Move new rundiz profiler class to out side DOM ready to make listen task(s) run before the others.
+
+// Move new rundiz profiler class to out side DOM ready to make listen task(s) such as AJAX run before the other.
 const rundizProfilerObj = new RundizProfiler();
 
 

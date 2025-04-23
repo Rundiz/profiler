@@ -11,7 +11,7 @@ namespace Rundiz\Profiler;
 /**
  * Profiler class.
  * 
- * This class works as processing the data for profiler such as gather things (input, file, sessions), get micro time.<br>
+ * This class works as processing the data for profiler such as gather things (input, file, sessions), get `microtime()`.<br>
  * This class also display the profiling result and dump the data for check or tests.
  * 
  * @package Rundiz\Profiler
@@ -27,21 +27,21 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * console class chaining.
+     * Console class chaining.
      * 
-     * @var \Rundiz\Profiler\Console for access console class
+     * @var \Rundiz\Profiler\Console For access `Console` class.
      */
     public $Console;
 
 
     /**
-     * @var bool Set to `true` to minify HTML output, `false` for not. If this was set to `true` then the beautiful indent will be ignored.
+     * @var bool Set to `true` to minify HTML output, `false` for not. If this was set to `true` then the beautiful indent will be ignored. Default is `false`.
      */
     public $minifyHtml = false;
 
 
     /**
-     * class constructor.
+     * Class constructor.
      */
     public function __construct() 
     {
@@ -57,8 +57,8 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
     /**
      * Count total log type in the "Logs" section.
      * 
-     * @param string $logtype Accept debug, info, notice, warning, error, critical, alert, emergency. referrer: http://www.php-fig.org/psr/psr-3/
-     * @return integer Return counted total log type in the "Logs" section.
+     * @param string $logtype Accepted debug, info, notice, warning, error, critical, alert, emergency. reference: http://www.php-fig.org/psr/psr-3/
+     * @return int Return counted total log type in the "Logs" section.
      */
     public function countTotalLogType($logtype)
     {
@@ -78,9 +78,11 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * display the profiler data results.
+     * Display the profiler data results.
      * 
-     * @return string return the profiler result in html.
+     * @param \PDO $dbh The `\PDO` class. This will be use in display views file.
+     * @param callable $display_db_function The display DB profiler callback function. This will be use in display views file.
+     * @return string Return the profiler result in HTML.
      */
     public function display($dbh = '', $display_db_function = '')
     {
@@ -103,9 +105,9 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * for checking only.
+     * For checking only.
      * 
-     * @return array
+     * @return array Return data of sections, start time, end time, max memory usage.
      */
     public function dumptest()
     {
@@ -119,7 +121,9 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * gather all data before call display. this can be done automatically if you just call display().
+     * Gather all data before call display. This can be done automatically if you just call `display()`.
+     * 
+     * It is not recommend to call this method directly until you have to use some method like `dumptest()`.
      */
     public function gatherAll()
     {
@@ -136,7 +140,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * gather included files and its size.
+     * Gather included files and its size.
      */
     private function gatherFiles()
     {
@@ -175,7 +179,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * gather input get
+     * Gather input get
      */
     private function gatherInputGet()
     {
@@ -201,7 +205,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * gather input post
+     * Gather input post
      */
     private function gatherInputPost()
     {
@@ -227,7 +231,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * gather input session
+     * Gather input session
      */
     private function gatherInputSession()
     {
@@ -253,10 +257,10 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * get microtime.
+     * Get microtime.
      * 
-     * @param boolean $at_start set to true if this microtime is get at the very beginning of the app. this can allow newer php version to use $_SERVER['REQUEST_TIME_FLOAT'];
-     * @return float microtime in float.
+     * @param bool $at_start Set to `true` if this `microtime()` is get at the very beginning of the app. This can allow newer PHP version to use $_SERVER['REQUEST_TIME_FLOAT'];
+     * @return float Return `microtime()` in float.
      */
     public function getMicrotime($at_start = false)
     {
@@ -273,9 +277,9 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      * 
      * This can be use with custom rendering or response via AJAX.
      * 
-     * @see ProfilerBase->log_sections
+     * @see ProfilerBase:log_sections
      * @since 1.1.6
-     * @return array
+     * @return array Return associative array of `log_sections` property.
      */
     public function getLogSectionsForResponse()
     {
@@ -297,12 +301,12 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * get readable file size.<br>
-     * copy from php quick profiler
+     * Get readable file size.<br>
+     * Copy from php quick profiler
      * 
-     * @param int $size
-     * @param string $retstring
-     * @return string
+     * @param int $size File size in bytes.
+     * @param string $retstring Return string in format. Example `%01d %s`.
+     * @return string Return formatted from bytes to readable file size. Example `1.5 GB`.
      */
     public function getReadableFileSize($size, $retstring = null)
     {
@@ -331,11 +335,11 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * get readable time.<br>
-     * copy from php quick profiler
+     * Get readable time.<br>
+     * Copy from php quick profiler
      * 
-     * @param integer $time
-     * @return string
+     * @param int $time The timestamp.
+     * @return string Return formatted from timestamp to readable time. Example `0.55 ms`.
      */
     public function getReadableTime($time) 
     {
@@ -361,7 +365,7 @@ class Profiler extends \Rundiz\Profiler\ProfilerBase
      * 
      * @param string $section The section name.
      * @param string $matchKey The match key in that section.
-     * @param integer $sectionKey The array index key of the section for check while displaying in the loop.
+     * @param int $sectionKey The array index key of the section for check while displaying in the loop.
      * @return string Return the readable result if found 2 match key and can summary. Return empty string if not found.
      */
     public function summaryMatchKey($section, $matchKey, $sectionKey)

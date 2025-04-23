@@ -21,15 +21,13 @@ class Console extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * profiler class for call back to the caller class.
-     * 
-     * @var \Rundiz\Profiler\Profiler 
+     * @var \Rundiz\Profiler\Profiler Profiler class for call back to the caller class.
      */
     protected $Profiler;
 
 
     /**
-     * class constructor
+     * Class constructor
      * 
      * @param \Rundiz\Profiler\Profiler $profiler
      */
@@ -42,9 +40,9 @@ class Console extends \Rundiz\Profiler\ProfilerBase
      * Database profiling log.
      * 
      * @param string $data SQL query statement. for example: SELECT id FROM people;.
-     * @param double $time_start `microtime(true)` at before start the query.
-     * @param integer $memory_start `memory_get_usage()` at before start the query. If this was not set then it will not be showing the real memory start. (Required).
-     * @todo [rundizprofiler] the "memory" in array key for Database will be remove in future version.
+     * @param float $time_start The `microtime(true)` at before start the query.
+     * @param int $memory_start The value from `memory_get_usage()` at before start the query. If this was not set then it will not be showing the real memory start. (Required).
+     * @todo [rundizprofiler] The "memory" in array key for Database will be remove in future version.
      */
     public function database($data, $time_start, $memory_start = null)
     {
@@ -60,11 +58,9 @@ class Console extends \Rundiz\Profiler\ProfilerBase
             $time_start = $this->Profiler->getMicrotime();
         }
 
-        if ($memory_start === null) {
-            // is dev still not using memory start? trigger error.
-            trigger_error('You did not enter $memory_start argument for \Rundiz\Profiler\Console->database() method. Please set the $memory_start to memory_get_usage() in your code.', E_USER_NOTICE);
-        }
         if (!is_int($memory_start)) {
+            // if developers still not using memory start? trigger error.
+            trigger_error('You did not enter $memory_start argument for \Rundiz\Profiler\Console->database() method. Please set the $memory_start to memory_get_usage() in your code.', E_USER_NOTICE);
             $memory_start = memory_get_usage();
         }
 
@@ -94,18 +90,16 @@ class Console extends \Rundiz\Profiler\ProfilerBase
 
         $this->Profiler->log_sections['Database'] = $section_database;
         unset($section_database, $section_database_data, $trace_items);
-
-        //$this->writeLogSections('Database', $data, $file, $line);
     }// database
 
 
     /**
-     * write normal logs.
+     * Write normal logs.
      * 
-     * @param string $logtype accept debug, info, notice, warning, error, critical, alert, emergency. referrer: http://www.php-fig.org/psr/psr-3/
-     * @param mixed $data log data.
-     * @param string $file path to file where it calls logger. (optional).
-     * @param integer $line number of line in that file that calls logger. (optional).
+     * @param string $logtype Accepted debug, info, notice, warning, error, critical, alert, emergency. Reference: http://www.php-fig.org/psr/psr-3/
+     * @param mixed $data Log data.
+     * @param string $file Path to file where it calls logger. (optional).
+     * @param int $line Number of line in that file that calls logger. (optional).
      */
     public function log($logtype, $data, $file = '', $line = '')
     {
@@ -119,11 +113,11 @@ class Console extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * write memory usage logs.
+     * Write memory usage logs.
      * 
-     * @param mixed $data log data.
-     * @param string $file path to file where it calls logger. (optional).
-     * @param integer $line number of line in that file that calls logger. (optional).
+     * @param mixed $data Log data.
+     * @param string $file Path to file where it calls logger. (optional).
+     * @param int $line Number of line in that file that calls logger. (optional).
      * @param string|null $matchKey The key to be match at the beginning and end for calculate total time or memory only for this key. (optional). The key must be unique in this section.
      */
     public function memoryUsage($data, $file = '', $line = '', $matchKey = null)
@@ -133,10 +127,10 @@ class Console extends \Rundiz\Profiler\ProfilerBase
 
 
     /**
-     * register log sections.<br>
-     * it is very important! you have to call this before other methods in this class or all log_sections data will be erased.
+     * Register log sections.<br>
+     * It is very important! You have to call this before other methods in this class or all `log_sections` data will be erased.
      * 
-     * @param array $sections register log sections by order. suggest: array('Logs', 'Time Load', 'Memory Usage', 'Database', 'Files', 'Session', 'Get', 'Post')
+     * @param array $sections Register log sections by order. Suggest: array('Logs', 'Time Load', 'Memory Usage', 'Database', 'Files', 'Session', 'Get', 'Post')
      */
     public function registerLogSections(array $sections)
     {
@@ -166,7 +160,7 @@ class Console extends \Rundiz\Profiler\ProfilerBase
      * 
      * @param mixed $data Log data.
      * @param string $file Path to file where it calls logger. (optional).
-     * @param integer $line Number of line in that file that calls logger. (optional).
+     * @param int $line Number of line in that file that calls logger. (optional).
      * @param string|null $matchKey The key to be match at the beginning and end for calculate total time or memory only for this key. (optional). The key must be unique in this section.
      */
     public function timeload($data, $file = '', $line = '', $matchKey = null)
@@ -178,10 +172,11 @@ class Console extends \Rundiz\Profiler\ProfilerBase
     /**
      * Write other sections logs.
      * 
-     * @param string $section The section name.
+     * @see Console:registerLogSections() For more details about section name.
+     * @param string $section The section name. See `Console:registerLogSections()`.
      * @param mixed $data Log data. This can be any type.
      * @param string $file Path to file where it calls logger. (optional).
-     * @param integer $line Number of line in that file that calls logger. (optional).
+     * @param int $line Number of line in that file that calls logger. (optional).
      * @param string|null $matchKey The key to be match at the beginning and end for calculate total time or memory only for this key. (optional). The key must be unique (for start and end) in each section.
      */
     public function writeLogSections($section, $data, $file = '', $line = '', $matchKey = null)
