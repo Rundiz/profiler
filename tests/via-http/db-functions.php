@@ -24,7 +24,7 @@ function rdpConnectDb(array $config)
         $dbh = new \PDO(
             'mysql:host='.$host.';dbname='.$dbname, $username, $password,
             [
-                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'',
+                \Pdo\Mysql::ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'',
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,// always use exception mode because it is working with try..catch. otherwise the warning mode will not work with try..catch.
             ]
         );

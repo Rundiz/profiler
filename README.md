@@ -9,7 +9,7 @@ Now, it supported profiling the Database query, PHP sessions, GET, POST data via
 [![License](https://poser.pugx.org/rundiz/profiler/license)](https://packagist.org/packages/rundiz/profiler)
 [![Total Downloads](https://poser.pugx.org/rundiz/profiler/downloads)](https://packagist.org/packages/rundiz/profiler)
 
-Tested up to PHP 8.4.
+Tested up to PHP 8.5.
 
 ![Rundiz\Profiler](tests/via-http/profiler-screenshot.jpg "Rundiz Profiler screenshot")
 
